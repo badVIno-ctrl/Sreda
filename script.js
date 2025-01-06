@@ -1,10 +1,11 @@
 document.getElementById('sreda-button').addEventListener('click', function() {
-    document.getElementById('page1').style.display = 'none';
-    document.getElementById('page2').style.display = 'flex';
-    document.getElementById('page2').style.opacity = '1';
-    document.querySelectorAll('.bar').forEach(bar => {
-        bar.style.transform = 'translateY(-100%)';
-    });
+    document.querySelector('.grid').style.transform = 'translateY(-100%)';
+    document.getElementById('sreda-button').style.display = 'none';
+    setTimeout(() => {
+        document.getElementById('page1').style.display = 'none';
+        document.getElementById('page2').style.display = 'flex';
+        document.getElementById('page2').style.opacity = '1';
+    }, 1000); // Ждем 1 секунду, чтобы анимация завершилась
 });
 
 document.getElementById('block1').addEventListener('click', function() {
