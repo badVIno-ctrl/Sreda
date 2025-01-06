@@ -25,28 +25,27 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(21, 1fr);
+    grid-template-rows: repeat(21, 1fr);
     pointer-events: none;
-    z-index: 3;
+    z-index: 1;
+    transition: transform 1s;
 }
 
 .bar {
     background-color: rgba(0, 0, 0, 0.5);
-    transition: transform 1s;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .horizontal {
-    width: 100%;
-    height: 12px;
-    margin-bottom: -6px; /* Половина высоты брусьев для создания сетки */
+    grid-column: span 21;
+    height: 6px;
 }
 
 .vertical {
-    width: 12px;
-    height: 100%;
-    margin-right: -6px; /* Половина ширины брусьев для создания сетки */
+    grid-row: span 21;
+    width: 6px;
 }
 
 .page {
@@ -59,19 +58,21 @@ body {
 }
 
 #page1 {
-    z-index: 4;
+    z-index: 2; 
 }
 
 #page2 {
     z-index: 1;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     background: linear-gradient(135deg, #f06, #4a90e2);
     opacity: 0.3;
 }
 
 button {
-    padding: 40px 80px;
-    font-size: 36px;
+    padding: 20px 40px;
+    font-size: 24px;
     background: linear-gradient(135deg, #f06, #4a90e2);
     color: white;
     border: none;
@@ -88,15 +89,35 @@ button:hover {
     transform: scale(1.1);
 }
 
+.sreda-button {
+    font-size: 96px; 
+    font-family: 'Times New Roman', Times, serif;
+    color: black; 
+    font-weight: bold; /
+    border: 4px solid black; 
+    padding: 10px 20px; 
+    background: linear-gradient(135deg, #ffcc66, #ff99cc); 
+    border-radius: 25px; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+}
+
+.block-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 20px;
+}
+
 .block {
     text-align: center;
-    margin: 20px;
+    margin: 10px;
     cursor: pointer;
     background: linear-gradient(135deg, #ffcc66, #ff99cc);
     border-radius: 25px;
-    padding: 40px;
+    padding: 20px;
     transition: transform 0.3s;
-    width: 300px;
+    width: 30%;
+    max-width: 300px;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -105,8 +126,8 @@ button:hover {
 }
 
 .block img {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 }
 
 .modal {
@@ -148,37 +169,40 @@ button:hover {
 
 @media (max-width: 768px) {
     button {
-        padding: 30px 60px;
-        font-size: 28px;
+        padding: 15px 30px;
+        font-size: 18px;
+    }
+
+    .sreda-button {
+        font-size: 72px; 
+    }
+
+    .block-container {
+        flex-direction: column;
+        align-items: center;
     }
 
     .block {
-        width: 250px;
-        padding: 30px;
+        width: 90%;
+        padding: 15px;
+        margin: 10px 0;
     }
 
     .block img {
-        width: 120px;
-        height: 120px;
+        width: 80px;
+        height: 80px;
     }
 
     .modal-content {
         width: 90%;
     }
 
-    .horizontal {
-        height: 10px;
-    }
-
-    .vertical {
-        width: 10px;
-    }
-
     .grid {
-        display: none; /* Скрываем сетку на мобильных устройствах */
+        display: none;
     }
 
     .support {
         font-size: 14px;
     }
 }
+
