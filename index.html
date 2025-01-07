@@ -7,60 +7,87 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="support" onclick="copyToClipboard('@BasantroVI')">поддержка @BasantroVI</div>
-    <div class="grid">
-        <!-- Горизонтальные линии -->
-        <div class="bar horizontal" style="grid-row: 1;"></div>
-        <div class="bar horizontal" style="grid-row: 3;"></div>
-        <div class="bar horizontal" style="grid-row: 5;"></div>
-        <div class="bar horizontal" style="grid-row: 7;"></div>
-        <div class="bar horizontal" style="grid-row: 9;"></div>
-        <div class="bar horizontal" style="grid-row: 11;"></div>
-        <div class="bar horizontal" style="grid-row: 13;"></div>
-        <div class="bar horizontal" style="grid-row: 15;"></div>
-        <div class="bar horizontal" style="grid-row: 17;"></div>
-        <div class="bar horizontal" style="grid-row: 19;"></div>
-        <div class="bar horizontal" style="grid-row: 21;"></div>
-
-        <!-- Вертикальные линии -->
-        <div class="bar vertical" style="grid-column: 1;"></div>
-        <div class="bar vertical" style="grid-column: 3;"></div>
-        <div class="bar vertical" style="grid-column: 5;"></div>
-        <div class="bar vertical" style="grid-column: 7;"></div>
-        <div class="bar vertical" style="grid-column: 9;"></div>
-        <div class="bar vertical" style="grid-column: 11;"></div>
-        <div class="bar vertical" style="grid-column: 13;"></div>
-        <div class="bar vertical" style="grid-column: 15;"></div>
-        <div class="bar vertical" style="grid-column: 17;"></div>
-        <div class="bar vertical" style="grid-column: 19;"></div>
-        <div class="bar vertical" style="grid-column: 21;"></div>
-    </div>
+    <nav class="navbar">
+        <div class="support-container">
+            <div class="support" onclick="copyToClipboard('https://t.me/BasantroVI')">поддержка https://t.me/BasantroVI</div>
+            <div class="blog" onclick="copyToClipboard('https://t.me/dkdkdjsjp')">блог разработчика - https://t.me/dkdkdjsjp</div>
+        </div>
+    </nav>
     <div class="page" id="page1">
+        <div class="version-container blurred">
+            <div class="version">Среда - 0.02.04</div>
+        </div>
         <div class="sreda-button-container">
             <button id="sreda-button" class="sreda-button">среда</button>
         </div>
+        <div class="grid">
+            <!-- Горизонтальные линии -->
+            <div class="bar horizontal" style="grid-row: 1;"></div>
+            <div class="bar horizontal" style="grid-row: 3;"></div>
+            <div class="bar horizontal" style="grid-row: 5;"></div>
+            <div class="bar horizontal" style="grid-row: 7;"></div>
+            <div class="bar horizontal" style="grid-row: 9;"></div>
+            <div class="bar horizontal" style="grid-row: 11;"></div>
+            <div class="bar horizontal" style="grid-row: 13;"></div>
+            <div class="bar horizontal" style="grid-row: 15;"></div>
+            <div class="bar horizontal" style="grid-row: 17;"></div>
+            <div class="bar horizontal" style="grid-row: 19;"></div>
+            <div class="bar horizontal" style="grid-row: 21;"></div>
+
+            <!-- Вертикальные линии -->
+            <div class="bar vertical" style="grid-column: 1;"></div>
+            <div class="bar vertical" style="grid-column: 3;"></div>
+            <div class="bar vertical" style="grid-column: 5;"></div>
+            <div class="bar vertical" style="grid-column: 7;"></div>
+            <div class="bar vertical" style="grid-column: 9;"></div>
+            <div class="bar vertical" style="grid-column: 11;"></div>
+            <div class="bar vertical" style="grid-column: 13;"></div>
+            <div class="bar vertical" style="grid-column: 15;"></div>
+            <div class="bar vertical" style="grid-column: 17;"></div>
+            <div class="bar vertical" style="grid-column: 19;"></div>
+            <div class="bar vertical" style="grid-column: 21;"></div>
+        </div>
     </div>
-    <div class="page" id="page2">
+    <div class="page blurred" id="page2">
+        <div class="version-container">
+            <div class="version">Среда - 0.02.05</div>
+        </div>
         <div class="block-container">
             <div class="block" id="block1">
-                <img src="android.webp" alt="Среда Android">
-                <p>среда android</p>
+                <p>Среда Android</p>
             </div>
             <div class="block" id="block2">
-                <img src="windows.webp" alt="Среда Windows 10">
-                <p>среда windows 10</p>
+                <p>Среда Windows 10</p>
             </div>
             <div class="block" id="block3">
-                <img src="glasses.webp" alt="Среда в очках">
-                <p>среда в очках</p>
+                <p>Среда в очках</p>
             </div>
+        </div>
+        <button id="chat-button" class="chat-button">чат со Средой</button>
+        <div class="background-text" id="background-text">
+            <!-- Надписи будут добавлены сюда с помощью JavaScript -->
         </div>
     </div>
     <div class="modal" id="modal">
         <span class="close-button">&times;</span>
         <div class="modal-content" id="modal-content"></div>
     </div>
+    <div class="chat-modal" id="chat-modal">
+        <span class="close-button">&times;</span>
+        <div class="chat-content" id="chat-content">
+            <div class="chat-commands">
+                <p>Команды для общения:</p>
+                <ul>
+                    <li onclick="copyToClipboard('Сбрось контекст')">Сбрось контекст</li>
+                </ul>
+            </div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Введите сообщение...">
+                <div id="send-button"></div>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
-
