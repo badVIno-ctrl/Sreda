@@ -1,24 +1,42 @@
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #f06, #4a90e2);
+    background: url('images/fon.jpg') no-repeat center center;
+    background-size: cover;
     overflow: hidden;
     position: relative;
+    color: #333;
 }
 
-.support {
+.navbar {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    z-index: 5;
+}
+
+.support-container {
+    background: linear-gradient(135deg, #f06, #4a90e2);
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.support, .blog {
     cursor: pointer;
     color: white;
     text-decoration: underline;
-    z-index: 4;
+    margin: 5px 0;
 }
 
 .grid {
@@ -29,23 +47,36 @@ body {
     grid-template-columns: repeat(21, 1fr);
     grid-template-rows: repeat(21, 1fr);
     pointer-events: none;
-    z-index: 1;
+    z-index: 0; 
     transition: transform 1s;
 }
 
 .bar {
-    background-color: rgba(0, 0, 0, 0.5);
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background-color: gold; 
+    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold;
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% {
+        box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold;
+    }
+    50% {
+        box-shadow: 0 0 20px gold, 0 0 30px gold, 0 0 40px gold;
+    }
+    100% {
+        box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold;
+    }
 }
 
 .horizontal {
     grid-column: span 21;
-    height: 6px;
+    height: 10px; 
 }
 
 .vertical {
     grid-row: span 21;
-    width: 6px;
+    width: 10px; 
 }
 
 .page {
@@ -66,8 +97,23 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(135deg, #f06, #4a90e2);
-    opacity: 0.3;
+    background: linear-gradient(135deg, #8e2de2, #4a90e2);
+    opacity: 0.9;
+    animation: gradientAnimation 5s infinite alternate;
+    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; 
+}
+
+.blurred {
+    filter: blur(5px); 
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
 }
 
 button {
@@ -78,7 +124,7 @@ button {
     border: none;
     cursor: pointer;
     border-radius: 25px;
-    transition: transform 0.5s;
+    transition: transform 0.5s, box-shadow 0.3s;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 5;
     min-width: 44px;
@@ -87,16 +133,22 @@ button {
 
 button:hover {
     transform: scale(1.1);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+    transform: scale(1.05);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .sreda-button {
     font-size: 96px; 
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Times New Roman', Times, serif; 
     color: black; 
-    font-weight: bold; /
+    font-weight: bold; 
     border: 4px solid black; 
     padding: 10px 20px; 
-    background: linear-gradient(135deg, #ffcc66, #ff99cc); 
+    background: linear-gradient(135deg, #f06, #4a90e2); 
     border-radius: 25px; 
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
@@ -106,28 +158,42 @@ button:hover {
     justify-content: space-around;
     width: 100%;
     padding: 20px;
+    flex-wrap: wrap; 
+    z-index: 2;
 }
 
 .block {
     text-align: center;
-    margin: 10px;
+    margin: 20px;
     cursor: pointer;
-    background: linear-gradient(135deg, #ffcc66, #ff99cc);
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     border-radius: 25px;
-    padding: 20px;
-    transition: transform 0.3s;
+    padding: 40px;
+    transition: transform 0.3s, box-shadow 0.3s;
     width: 30%;
-    max-width: 300px;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    min-width: 300px;
+    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; 
+    color: #333; 
+    font-family: 'Arial', sans-serif; 
 }
 
 .block:hover {
     transform: scale(1.05);
+    box-shadow: 0 0 15px gold, 0 0 30px gold, 0 0 45px gold;
 }
 
-.block img {
-    width: 100px;
-    height: 100px;
+.block:active {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold;
+}
+
+.block p {
+    font-size: 1.5em;
+    margin-top: 20px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace; 
+    color: #fff; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
 
 .modal {
@@ -143,14 +209,51 @@ button:hover {
 }
 
 .modal-content {
-    background-color: #fff;
+    background: linear-gradient(135deg, #4a90e2, #8e2de2);
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; 
+    color: #333;
+    font-family: 'Arial', sans-serif; 
+    text-align: center;
+}
+
+.modal-title img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-content p {
+    font-size: 1.2em;
+    margin: 20px 0;
+}
+
+.modal-content a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #f06, #4a90e2);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content a:hover {
+    transform: scale(1.05);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.modal-content a:active {
+    transform: scale(1.02);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .close-button {
@@ -158,6 +261,7 @@ button:hover {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    transition: color 0.3s;
 }
 
 .close-button:hover,
@@ -165,6 +269,48 @@ button:hover {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.background-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.background-text.visible {
+    opacity: 1;
+}
+
+.background-text span {
+    position: absolute;
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.3); 
+    text-transform: uppercase;
+    transform: rotate(-10deg);
+}
+
+.version-container {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #f06, #4a90e2);
+    padding: 10px 20px;
+    border-radius: 25px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+}
+
+.version {
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {
@@ -184,25 +330,176 @@ button:hover {
 
     .block {
         width: 90%;
-        padding: 15px;
-        margin: 10px 0;
+        padding: 30px;
+        margin: 15px 0;
     }
 
     .block img {
-        width: 80px;
-        height: 80px;
+        width: 120px;
+        height: 120px;
     }
 
     .modal-content {
         width: 90%;
     }
 
-    .grid {
-        display: none;
-    }
-
-    .support {
+    .support, .blog {
         font-size: 14px;
     }
+
+    .background-text span {
+        font-size: 18px;
+    }
+
+    .version {
+        font-size: 18px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(11, 1fr);
+        grid-template-rows: repeat(11, 1fr);
+    }
+
+    .horizontal {
+        grid-column: span 11;
+    }
+
+    .vertical {
+        grid-row: span 11;
+    }
+}
+
+.chat-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 30px;
+    font-size: 18px;
+    background: linear-gradient(135deg, #f06, #4a90e2);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+}
+
+.chat-button:hover {
+    transform: scale(1.1);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.chat-button:active {
+    transform: scale(1.05);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.chat-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.chat-content {
+    background: linear-gradient(135deg, #4a90e2, #8e2de2);
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; 
+    color: #333; 
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+.chat-commands {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.chat-commands p {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+.chat-commands ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.chat-commands ul li {
+    margin: 5px 0;
+    cursor: pointer;
+    color: #ff0000; 
+    text-decoration: underline;
+}
+
+.chat-messages {
+    height: 600px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.chat-message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 70%;
+    word-wrap: break-word;
+    color: black;
+}
+
+.chat-message.user {
+    background: #f0f0f0;
+    align-self: flex-end;
+    font-family: 'Arial', sans-serif;
+}
+
+.chat-message.assistant {
+    background: #ffc0cb;
+    align-self: flex-start;
+    font-family: 'Courier New', Courier, monospace; 
+}
+
+.chat-input-container {
+    display: flex;
+    align-items: center;
+}
+
+#chat-input {
+    width: calc(100% - 60px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#send-button {
+    width: 40px;
+    height: 40px;
+    background-color: #4a90e2; 
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#send-button:hover {
+    transform: scale(1.1);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+#send-button:active {
+    transform: scale(1.05);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
