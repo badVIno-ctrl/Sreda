@@ -1,15 +1,16 @@
+// script.js
 document.getElementById('sreda-button').addEventListener('click', function() {
     document.querySelector('.grid').style.transform = 'translateY(-100%)';
     document.getElementById('sreda-button').style.display = 'none';
-    document.querySelector('.version-container').classList.remove('blurred'); 
-    document.getElementById('page2').classList.remove('blurred'); 
+    document.querySelector('.version-container').classList.remove('blurred'); // Убираем размытие
+    document.getElementById('page2').classList.remove('blurred'); // Убираем размытие
     setTimeout(() => {
         document.getElementById('page1').style.display = 'none';
         document.getElementById('page2').style.display = 'flex';
         document.getElementById('page2').style.opacity = '1';
         document.querySelector('.background-text').classList.add('visible');
         distributeBadVInoTexts();
-    }, 1000); 
+    }, 1000); // Ждем 1 секунду, чтобы анимация завершилась
 });
 
 document.getElementById('block1').addEventListener('click', function() {
@@ -63,7 +64,7 @@ function showModal(title, description, link) {
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
-        
+        // Убираем уведомление о копировании текста
     }, function(err) {
         console.error('Ошибка копирования: ', err);
     });
@@ -72,7 +73,7 @@ function copyToClipboard(text) {
 function distributeBadVInoTexts() {
     const backgroundText = document.getElementById('background-text');
     const numTexts = 50;
-    const minDistance = 50; 
+    const minDistance = 50; // Минимальное расстояние между надписями
 
     for (let i = 0; i < numTexts; i++) {
         const span = document.createElement('span');
@@ -81,7 +82,7 @@ function distributeBadVInoTexts() {
         span.style.left = Math.random() * 100 + '%';
         span.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
 
-       
+        // Проверка расстояния между надписями
         let overlaps = true;
         while (overlaps) {
             overlaps = false;
