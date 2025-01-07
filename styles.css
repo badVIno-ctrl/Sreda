@@ -1,4 +1,4 @@
-
+/* styles.css */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -11,7 +11,7 @@ body {
     background-size: cover;
     overflow: hidden;
     position: relative;
-    color: #333;
+    color: #333; /* Устанавливаем более контрастный цвет текста */
 }
 
 .navbar {
@@ -44,15 +44,15 @@ body {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(21, 1fr);
-    grid-template-rows: repeat(21, 1fr);
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(11, 1fr);
     pointer-events: none;
-    z-index: 0; 
+    z-index: 0; /* Уменьшаем z-index, чтобы решетка была под кнопкой */
     transition: transform 1s;
 }
 
 .bar {
-    background-color: gold; 
+    background-color: gold; /* Золотой цвет для решетки */
     box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold;
     animation: shine 2s infinite;
 }
@@ -70,13 +70,13 @@ body {
 }
 
 .horizontal {
-    grid-column: span 21;
-    height: 10px; 
+    grid-column: span 11;
+    height: 10px; /* Увеличена ширина горизонтальных линий */
 }
 
 .vertical {
-    grid-row: span 21;
-    width: 10px; 
+    grid-row: span 11;
+    width: 10px; /* Увеличена ширина вертикальных линий */
 }
 
 .page {
@@ -89,7 +89,7 @@ body {
 }
 
 #page1 {
-    z-index: 2; 
+    z-index: 2; /* Увеличиваем z-index, чтобы кнопка была поверх решетки */
 }
 
 #page2 {
@@ -100,11 +100,11 @@ body {
     background: linear-gradient(135deg, #8e2de2, #4a90e2);
     opacity: 0.9;
     animation: gradientAnimation 5s infinite alternate;
-    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; 
+    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; /* Добавляем сияние */
 }
 
 .blurred {
-    filter: blur(5px); 
+    filter: blur(5px); /* Добавляем размытие */
 }
 
 @keyframes gradientAnimation {
@@ -142,15 +142,15 @@ button:active {
 }
 
 .sreda-button {
-    font-size: 96px; 
-    font-family: 'Times New Roman', Times, serif; 
-    color: black; 
-    font-weight: bold; 
-    border: 4px solid black; 
-    padding: 10px 20px; 
-    background: linear-gradient(135deg, #f06, #4a90e2); 
-    border-radius: 25px; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    font-size: 96px; /* Увеличиваем размер шрифта в 4 раза */
+    font-family: 'Times New Roman', Times, serif; /* Изменяем шрифт */
+    color: black; /* Делаем текст черным */
+    font-weight: bold; /* Делаем текст жирным */
+    border: 4px solid black; /* Добавляем черный контур */
+    padding: 10px 20px; /* Добавляем отступы */
+    background: linear-gradient(135deg, #f06, #4a90e2); /* Добавляем градиент для фона */
+    border-radius: 25px; /* Добавляем скругление углов */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Добавляем тень тексту */
 }
 
 .block-container {
@@ -158,7 +158,7 @@ button:active {
     justify-content: space-around;
     width: 100%;
     padding: 20px;
-    flex-wrap: wrap; 
+    flex-wrap: wrap; /* Добавляем обертку для блоков */
     z-index: 2;
 }
 
@@ -172,9 +172,15 @@ button:active {
     transition: transform 0.3s, box-shadow 0.3s;
     width: 30%;
     min-width: 300px;
-    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; 
-    color: #333; 
-    font-family: 'Arial', sans-serif; 
+    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; /* Добавляем сияние */
+    color: #333; /* Устанавливаем более контрастный цвет текста */
+    font-family: 'Arial', sans-serif; /* Устанавливаем более удобный для чтения шрифт */
+}
+
+.block img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
 }
 
 .block:hover {
@@ -191,9 +197,9 @@ button:active {
     font-size: 1.5em;
     margin-top: 20px;
     font-weight: bold;
-    font-family: 'Courier New', Courier, monospace; 
-    color: #fff; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    font-family: 'Courier New', Courier, monospace; /* Изменяем шрифт */
+    color: #fff; /* Изменяем цвет текста */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Добавляем тень тексту */
 }
 
 .modal {
@@ -215,9 +221,9 @@ button:active {
     border-radius: 15px;
     width: 80%;
     max-width: 600px;
-    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; 
-    color: #333;
-    font-family: 'Arial', sans-serif; 
+    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; /* Добавляем сияние */
+    color: #333; /* Устанавливаем более контрастный цвет текста */
+    font-family: 'Arial', sans-serif; /* Устанавливаем более удобный для чтения шрифт */
     text-align: center;
 }
 
@@ -290,7 +296,7 @@ button:active {
 .background-text span {
     position: absolute;
     font-size: 24px;
-    color: rgba(255, 255, 255, 0.3); 
+    color: rgba(255, 255, 255, 0.3); /* Увеличиваем непрозрачность */
     text-transform: uppercase;
     transform: rotate(-10deg);
 }
@@ -320,7 +326,7 @@ button:active {
     }
 
     .sreda-button {
-        font-size: 72px; 
+        font-size: 72px; /* Уменьшаем размер шрифта для мобильных устройств */
     }
 
     .block-container {
@@ -414,9 +420,9 @@ button:active {
     border-radius: 15px;
     width: 90%;
     max-width: 900px;
-    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; 
-    color: #333; 
-    font-family: 'Arial', sans-serif;
+    box-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold; /* Добавляем сияние */
+    color: #333; /* Устанавливаем более контрастный цвет текста */
+    font-family: 'Arial', sans-serif; /* Устанавливаем более удобный для чтения шрифт */
     text-align: center;
 }
 
@@ -438,7 +444,7 @@ button:active {
 .chat-commands ul li {
     margin: 5px 0;
     cursor: pointer;
-    color: #ff0000; 
+    color: #ff0000; /* Изменяем цвет команды "сбрось контекст" */
     text-decoration: underline;
 }
 
@@ -457,19 +463,19 @@ button:active {
     border-radius: 5px;
     max-width: 70%;
     word-wrap: break-word;
-    color: black;
+    color: black; /* Устанавливаем черный цвет текста */
 }
 
 .chat-message.user {
     background: #f0f0f0;
     align-self: flex-end;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Arial', sans-serif; /* Изменяем шрифт сообщения пользователя */
 }
 
 .chat-message.assistant {
     background: #ffc0cb;
     align-self: flex-start;
-    font-family: 'Courier New', Courier, monospace; 
+    font-family: 'Courier New', Courier, monospace; /* Изменяем шрифт сообщения среды */
 }
 
 .chat-input-container {
@@ -488,7 +494,7 @@ button:active {
 #send-button {
     width: 40px;
     height: 40px;
-    background-color: #4a90e2; 
+    background-color: #4a90e2; /* Изменяем цвет кнопки отправить */
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -502,4 +508,3 @@ button:active {
     transform: scale(1.05);
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
-
