@@ -12,6 +12,9 @@ body {
     overflow: hidden;
     position: relative;
     color: #333; /* Устанавливаем более контрастный цвет текста */
+    border: 5px solid #4a90e2; /* Добавляем границу сайта */
+    border-radius: 15px; /* Скругляем углы границы */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Добавляем тень для границы */
 }
 
 .navbar {
@@ -320,6 +323,12 @@ button:active {
 }
 
 @media (max-width: 768px) {
+    body {
+        border: none; /* Убираем границу для мобильных устройств */
+        border-radius: 0; /* Убираем скругление углов */
+        box-shadow: none; /* Убираем тень */
+    }
+
     button {
         padding: 15px 30px;
         font-size: 18px;
@@ -508,3 +517,4 @@ button:active {
     transform: scale(1.05);
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
+
