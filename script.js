@@ -180,4 +180,3 @@ async function sendMessageToMistral(message) {
         addMessageToChat('assistant', 'Ошибка при отправке запроса. Пожалуйста, попробуйте позже.');
     }
 }
-
