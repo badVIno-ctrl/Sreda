@@ -340,6 +340,8 @@ button:active {
         border: none;
         border-radius: 0;
         box-shadow: none;
+        height: auto;
+        overflow-y: scroll;
     }
 
     .block-container {
@@ -580,4 +582,5 @@ button:active {
     transform: scale(1.05);
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
 }
+
 
