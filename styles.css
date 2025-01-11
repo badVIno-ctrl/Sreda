@@ -7,7 +7,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('images/fon.jpg') no-repeat center center;
     background-size: cover;
     overflow: hidden;
     position: relative;
