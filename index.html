@@ -10,6 +10,7 @@
     <nav class="navbar">
         <div class="support-container">
             <div class="support" onclick="copyToClipboard('https://t.me/BasantroVI')">поддержка https://t.me/BasantroVI</div>
+            <div class="blog" onclick="copyToClipboard('https://t.me/wensdaybadVIno')">блог разработчика https://t.me/wensdaybadVIno</div>
         </div>
     </nav>
     <div class="page" id="page1">
@@ -20,7 +21,6 @@
             <button id="sreda-button" class="sreda-button">среда</button>
         </div>
         <div class="grid">
-            <!-- Горизонтальные линии -->
             <div class="bar horizontal" style="grid-row: 1;"></div>
             <div class="bar horizontal" style="grid-row: 3;"></div>
             <div class="bar horizontal" style="grid-row: 5;"></div>
@@ -33,7 +33,6 @@
             <div class="bar horizontal" style="grid-row: 19;"></div>
             <div class="bar horizontal" style="grid-row: 21;"></div>
 
-            <!-- Вертикальные линии -->
             <div class="bar vertical" style="grid-column: 1;"></div>
             <div class="bar vertical" style="grid-column: 3;"></div>
             <div class="bar vertical" style="grid-column: 5;"></div>
@@ -48,26 +47,25 @@
         </div>
     </div>
     <div class="page blurred" id="page2">
-        <div class="version-container">
-            <div class="version">Среда - 0.02.04</div>
-        </div>
         <div class="block-container">
             <div class="block" id="block1">
                 <img src="images/android_image.jpg" alt="Среда Android">
                 <p>Среда Android</p>
+                <div class="version-badge">0.02.05</div>
             </div>
             <div class="block" id="block2">
                 <img src="images/win_image.jpg" alt="Среда Windows 10">
                 <p>Среда Windows 10</p>
+                <div class="version-badge">0.00.00</div>
             </div>
             <div class="block" id="block3">
                 <img src="images/shellooo.jpg" alt="Среда в очках">
                 <p>Среда в очках</p>
+                <div class="version-badge">glasses VI-2</div>
             </div>
         </div>
         <button id="chat-button" class="chat-button">чат со Средой</button>
         <div class="background-text" id="background-text">
-            <!-- Надписи будут добавлены сюда с помощью JavaScript -->
         </div>
     </div>
     <div class="modal" id="modal">
@@ -90,6 +88,11 @@
             </div>
         </div>
     </div>
+
+    <div id="send-button">
+        <img src="images/chat.jpg" alt="Отправить">
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
