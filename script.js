@@ -1,16 +1,15 @@
-// script.js
 document.getElementById('sreda-button').addEventListener('click', function() {
     document.querySelector('.grid').style.transform = 'translateY(-100%)';
     document.getElementById('sreda-button').style.display = 'none';
-    document.querySelector('.version-container').classList.remove('blurred'); // Убираем размытие
-    document.getElementById('page2').classList.remove('blurred'); // Убираем размытие
+    document.querySelector('.version-container').classList.remove('blurred');
+    document.getElementById('page2').classList.remove('blurred');
     setTimeout(() => {
         document.getElementById('page1').style.display = 'none';
         document.getElementById('page2').style.display = 'flex';
         document.getElementById('page2').style.opacity = '1';
         document.querySelector('.background-text').classList.add('visible');
         distributeBadVInoTexts();
-    }, 1000); // Ждем 1 секунду, чтобы анимация завершилась
+    }, 1000);
 });
 
 document.getElementById('block1').addEventListener('click', function() {
@@ -64,7 +63,6 @@ function showModal(title, description, link) {
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
-        // Убираем уведомление о копировании текста
     }, function(err) {
         console.error('Ошибка копирования: ', err);
     });
@@ -73,7 +71,7 @@ function copyToClipboard(text) {
 function distributeBadVInoTexts() {
     const backgroundText = document.getElementById('background-text');
     const numTexts = 50;
-    const minDistance = 50; // Минимальное расстояние между надписями
+    const minDistance = 50;
 
     for (let i = 0; i < numTexts; i++) {
         const span = document.createElement('span');
@@ -82,7 +80,6 @@ function distributeBadVInoTexts() {
         span.style.left = Math.random() * 100 + '%';
         span.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
 
-        // Проверка расстояния между надписями
         let overlaps = true;
         while (overlaps) {
             overlaps = false;
@@ -120,6 +117,12 @@ function sendMessage() {
     const userInput = document.getElementById('chat-input').value;
     if (userInput.trim() === '') return;
 
+    if (userInput.toLowerCase().includes('среда, презентация')) {
+        const link = 'https://gamma.app/docs/-v9gy89ndkb5fzcc';
+        addMessageToChat('assistant', `Вот ссылка на презентацию: <a href="${link}" target="_blank">${link}</a>`);
+        return;
+    }
+
     addMessageToChat('user', userInput);
     document.getElementById('chat-input').value = '';
 
@@ -135,7 +138,7 @@ function addMessageToChat(sender, message) {
     const chatMessages = document.getElementById('chat-messages');
     const messageElement = document.createElement('div');
     messageElement.classList.add('chat-message', sender);
-    messageElement.textContent = message;
+    messageElement.innerHTML = message;
     chatMessages.appendChild(messageElement);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
@@ -180,3 +183,4 @@ async function sendMessageToMistral(message) {
         addMessageToChat('assistant', 'Ошибка при отправке запроса. Пожалуйста, попробуйте позже.');
     }
 }
+
