@@ -15,7 +15,6 @@
     </nav>
     <div class="page" id="page1">
         <div class="version-container blurred">
-            <div class="version">Среда - 0.02.05</div>
         </div>
         <div class="sreda-button-container">
             <button id="sreda-button" class="sreda-button">среда</button>
@@ -64,35 +63,23 @@
                 <div class="version-badge">glasses VI-2</div>
             </div>
         </div>
-        <button id="chat-button" class="chat-button">чат со Средой</button>
-        <div class="background-text" id="background-text">
+        <div class="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Введите сообщение...">
+            <button id="send-button" class="send-button">Отправить</button>
         </div>
+        <div class="chat-messages" id="chat-messages"></div>
     </div>
+    <div class="block-toggle">------------------------------</div>
     <div class="modal" id="modal">
         <span class="close-button">&times;</span>
         <div class="modal-content" id="modal-content"></div>
     </div>
-    <div class="chat-modal" id="chat-modal">
-        <span class="close-button">&times;</span>
-        <div class="chat-content" id="chat-content">
-            <div class="chat-commands">
-                <p>Команды для общения:</p>
-                <ul>
-                    <li onclick="copyToClipboard('Сбрось контекст')">Сбрось контекст</li>
-                </ul>
-            </div>
-            <div class="chat-messages" id="chat-messages"></div>
-            <div class="chat-input-container">
-                <input type="text" id="chat-input" placeholder="Введите сообщение...">
-                <div id="send-button"></div>
-            </div>
-        </div>
+    <div class="special-design">
+        <div class="star" style="top: 10%; left: 20%;"></div>
+        <div class="star" style="top: 30%; left: 80%;"></div>
+        <div class="star" style="top: 60%; left: 50%;"></div>
+        <div class="star" style="top: 90%; left: 10%;"></div>
     </div>
-
-    <div id="send-button">
-        <img src="images/chat.jpg" alt="Отправить">
-    </div>
-
     <script src="script.js"></script>
 </body>
 </html>
