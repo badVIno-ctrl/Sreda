@@ -1,5 +1,6 @@
 let currentPage = 1;
 let isAnimating = false;
+let blocksMovedToChat = false;
 
 document.getElementById('sreda-button').addEventListener('click', function() {
     if (isAnimating) return;
@@ -32,13 +33,13 @@ document.getElementById('block3').addEventListener('click', function() {
 
 document.getElementById('send-button').addEventListener('click', function() {
     sendMessage();
-    moveBlocksUp();
+    moveBlocksToChat();
 });
 
 document.getElementById('chat-input').addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
         sendMessage();
-        moveBlocksUp();
+        moveBlocksToChat();
     }
 });
 
@@ -115,17 +116,36 @@ async function sendMessageToMistral(message) {
     }
 }
 
-function moveBlocksUp() {
+function moveBlocksToChat() {
     const blockContainer = document.querySelector('.block-container');
-    if (!blockContainer.classList.contains('moved')) {
-        blockContainer.classList.add('moved');
+    const chatBlockContainer = document.getElementById('chat-block-container');
+    blockContainer.classList.add('hidden');
+    chatBlockContainer.style.display = 'block';
+    blocksMovedToChat = true;
+
+    // Add event listeners to the blocks in the chat
+    const blocks = chatBlockContainer.getElementsByClassName('block');
+    for (let i = 0; i < blocks.length; i++) {
+        blocks[i].addEventListener('click', function() {
+            if (this.id === 'block1') {
+                showModal('<img src="images/android_image.jpg" alt="Среда Android">', `Среда — это голосовой помощник, который может выполнять различные задачи, такие как отправка сообщений, напоминания. Просто скажите 'Среда' и дайте команду, и она это выполнит. Примеры команд: - Открой приложение - Напомни мне - Поставь будильник - Расскажи о. Как работать с Средой: - Скажите 'Среда' - Дайте команду - Среда выполнит вашу команду`, 'downloads/sreda_android.apk');
+            } else if (this.id === 'block2') {
+                showModal('<img src="images/win_image.jpg" alt="Среда Windows 10">', 'Описание компьютерной версии "Среды".', 'sreda_windows.exe');
+            } else if (this.id === 'block3') {
+                showModal('<img src="images/shellooo.jpg" alt="Среда в очках">', 'Очки со Средой. Вы устанавливаете приложение "Среда" под андроид, подключаете очки по Bluetooth и вот чудо, работает. Заказать @BasantroVI', 'Заказать @BasantroVI');
+            }
+        });
     }
 }
 
-function resetBlocks() {
+function toggleBlocksInChat() {
     const blockContainer = document.querySelector('.block-container');
-    if (blockContainer.classList.contains('moved')) {
-        blockContainer.classList.remove('moved');
+    const chatBlockContainer = document.getElementById('chat-block-container');
+
+    if (blocksMovedToChat) {
+        chatBlockContainer.style.display = chatBlockContainer.style.display === 'block' ? 'none' : 'block';
+    } else {
+        blockContainer.classList.toggle('hidden');
     }
 }
 
@@ -245,16 +265,8 @@ function animateBackground() {
 window.addEventListener('load', animateBackground);
 
 const blockToggle = document.querySelector('.block-toggle');
-const blockContainer = document.querySelector('.block-container');
 
 blockToggle.addEventListener('click', function() {
-    blockContainer.classList.toggle('hidden');
+    toggleBlocksInChat();
 });
 
-blockToggle.addEventListener('mouseenter', function() {
-    blockContainer.classList.remove('hidden');
-});
-
-blockToggle.addEventListener('mouseleave', function() {
-    blockContainer.classList.add('hidden');
-});
