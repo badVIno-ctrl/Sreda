@@ -6,12 +6,10 @@ body {
     justify-content: center;
     align-items: center;
     height: 100dvh;
-    background: linear-gradient(135deg, #0000FF, #FFFF00);
+    background: linear-gradient(135deg, #87CEEB, #4682B4, #00008B, #FFFF00, #FFA500);
     overflow: hidden;
     position: relative;
     color: #FFFFFF;
-    border: 1vw solid #FF0000;
-    border-radius: 2vw;
     box-shadow: 0 0 1.5vw rgba(0, 0, 0, 0.5);
     animation: backgroundAnimation 10s infinite alternate;
 }
@@ -31,7 +29,7 @@ body {
     right: 1vw;
     width: 5vw;
     height: 5vw;
-    background: linear-gradient(135deg, #0000FF, #FFFF00);
+    background: linear-gradient(135deg, #87CEEB, #4682B4, #00008B, #FFFF00, #FFA500);
     border-radius: 1vw;
     display: flex;
     justify-content: center;
@@ -49,7 +47,7 @@ body {
 
 .support-container {
     display: none;
-    background: linear-gradient(135deg, #0000FF, #FFFF00);
+    background: linear-gradient(135deg, #87CEEB, #4682B4, #00008B, #FFFF00, #FFA500);
     padding: 1vw;
     border-radius: 2.5vw;
     box-shadow: 0.4vw 0.4vw 0.8vw rgba(0, 0, 0, 0.3), 0 0 1vw #FFFF00, 0 0 2vw #FFFF00, 0 0 3vw #FFFF00;
@@ -62,11 +60,25 @@ body {
     opacity: 1;
 }
 
-.support, .blog {
+.support {
     color: white;
     text-decoration: underline;
     margin: 0.5vw 0;
-    font-size: 0.6vw;
+    font-size: 0.9vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.support-text {
+    display: none;
+    font-size: 0.7vw;
+    text-align: center;
+}
+
+.support:hover .support-text {
+    display: block;
 }
 
 .grid {
@@ -127,7 +139,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(135deg, #0000FF, #FFFF00);
+    background: linear-gradient(135deg, #87CEEB, #4682B4, #00008B, #FFFF00, #FFA500);
     opacity: 0.9;
     animation: gradientAnimation 5s infinite alternate;
     box-shadow: 0 0 1vw #FFFF00, 0 0 2vw #FFFF00, 0 0 3vw #FFFF00;
@@ -149,7 +161,7 @@ body {
 button {
     padding: 2vw 4vw;
     font-size: 2.4vw;
-    background: linear-gradient(135deg, #0000FF, #FFFF00);
+    background: linear-gradient(135deg, #87CEEB, #4682B4, #00008B, #FFFF00, #FFA500);
     color: white;
     border: none;
     cursor: pointer;
@@ -178,7 +190,7 @@ button:active {
     font-weight: bold;
     border: 0.4vw solid black;
     padding: 1vw 2vw;
-    background: linear-gradient(135deg, #0000FF, #FFFF00);
+    background: linear-gradient(135deg, #87CEEB, #4682B4, #00008B, #FFFF00, #FFA500);
     border-radius: 2.5vw;
     text-shadow: 0.2vw 0.2vw 0.4vw rgba(0, 0, 0, 0.5);
 }
@@ -210,7 +222,7 @@ button:active {
     text-align: center;
     margin: 2vw;
     cursor: pointer;
-    background: linear-gradient(135deg, #FFFFFF, #0000FF, #FF0000);
+    background: linear-gradient(135deg, #FFFFFF, #87CEEB, #4682B4, #00008B, #FFA500);
     border-radius: 2.5vw;
     padding: 2vw;
     transition: transform 0.3s, box-shadow 0.3s;
@@ -277,10 +289,10 @@ button:active {
     margin: 15dvh auto;
     padding: 2vw;
     border-radius: 1.5vw;
-    width: 80vw;
-    max-width: 60vw;
+    width: 40vw;
+    max-width: 40vw;
     box-shadow: 0 0 1vw #FFFF00, 0 0 2vw #FFFF00, 0 0 3vw #FFFF00;
-    color: #333;
+    color: #ffffff;
     font-family: 'Arial', sans-serif;
     text-align: center;
 }
@@ -364,7 +376,7 @@ button:active {
     top: 2vw;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, #0000FF, #FFFF00);
+    background: linear-gradient(135deg, #87CEEB, #4682B4, #00008B, #FFFF00, #FFA500);
     padding: 1vw 2vw;
     border-radius: 2.5vw;
     box-shadow: 0.4vw 0.4vw 0.8vw rgba(0, 0, 0, 0.3);
@@ -376,14 +388,13 @@ button:active {
     color: white;
     font-weight: bold;
 }
-
 @media (max-width: 768px) {
     body {
-        border: 1vw solid #FF0000;
-        border-radius: 2vw;
-        box-shadow: 0 0 1.5vw rgba(0, 0, 0, 0.5);
-        height: auto;
-        overflow-y: scroll;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        height: 100vh;
+        overflow-y: auto;
     }
 
     .block-container {
@@ -402,42 +413,167 @@ button:active {
     }
 
     .support, .blog {
-        font-size: 0.7vw;
+        font-size: 1.5vw;
     }
 
     .background-text span {
-        font-size: 1.8vw;
+        font-size: 3vw;
     }
 
     .version {
-        font-size: 1.8vw;
+        font-size: 3vw;
     }
 
     .grid {
-        grid-template-columns: repeat(11, 1fr);
-        grid-template-rows: repeat(11, 1fr);
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
     }
 
     .horizontal {
-        grid-column: span 11;
+        grid-column: span 5;
     }
 
     .vertical {
-        grid-row: span 11;
+        grid-row: span 5;
     }
 
     button {
-        padding: 1.5vw 3vw;
-        font-size: 1.8vw;
+        padding: 3vw;
+        font-size: 3vw;
     }
 
     .sreda-button {
-        font-size: 7.2vw;
+        font-size: 12vw;
     }
 
     .block img {
-        width: 12vw;
-        height: 12vw;
+        width: 20vw;
+        height: 20vw;
+    }
+
+    .chat-input-container {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    #chat-input {
+        width: 100%;
+        padding: 2vw;
+        font-size: 3vw;
+    }
+
+    .send-button {
+        width: 100%;
+        padding: 2vw;
+        font-size: 3vw;
+    }
+
+    .chat-messages {
+        width: 90%;
+        height: 60vh;
+    }
+
+    .chat-block-container {
+        width: 100%;
+        height: 40vh;
+        position: static;
+    }
+
+    .send-button svg {
+        width: 2vw;
+        height: 2vw;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    .block-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .block {
+        width: 90vw;
+        padding: 3vw;
+        margin: 1.5vw 0;
+    }
+
+    .modal-content {
+        width: 90vw;
+    }
+
+    .support, .blog {
+        font-size: 1.5vw;
+    }
+
+    .background-text span {
+        font-size: 3vw;
+    }
+
+    .version {
+        font-size: 3vw;
+    }
+
+    .grid {
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+    }
+
+    .horizontal {
+        grid-column: span 5;
+    }
+
+    .vertical {
+        grid-row: span 5;
+    }
+
+    button {
+        padding: 3vw;
+        font-size: 3vw;
+    }
+
+    .sreda-button {
+        font-size: 12vw;
+    }
+
+    .block img {
+        width: 20vw;
+        height: 20vw;
+    }
+
+    .chat-input-container {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    #chat-input {
+        width: 100%;
+        padding: 2vw;
+        font-size: 3vw;
+    }
+
+    .send-button {
+        width: 100%;
+        padding: 2vw;
+        font-size: 3vw;
+    }
+
+    .chat-messages {
+        width: 90%;
+        height: 60vh;
+    }
+
+    .chat-block-container {
+        width: 100%;
+        height: 40vh;
+        position: static;
     }
 }
 
@@ -454,30 +590,26 @@ button:active {
 #chat-input {
     width: 40vw;
     padding: 0.5vw;
-    border: 0.1vw solid #ccc;
-    border-radius: 0.5vw;
+    border: 0.1vw solid #000000;
+    border-radius: 0.3vw;
     margin-right: 0;
     background: rgba(0, 0, 0, 0.5);
     color: #00ffff;
-    font-size: 1.2vw;
+    font-size: 1.5vw;
     text-shadow: none;
 }
 
 .send-button {
-    width: 8vw;
-    padding: 0.2vw 0.5vw;
-    font-size: 1.2vw;
+    padding: 0.3vw;
     background: none;
-    color: white;
-    border: 0.01vw solid #ccc;
+    color: rgb(0, 0, 0);
     border-radius: 0.5vw;
-    cursor: pointer;
     transition: background 1s;
-    text-shadow: none;
 }
 
 .send-button:hover {
-    background: rgba(233, 14, 14, 0.5);
+    width: 0.5vw;
+    padding: 0.5vw;
 }
 
 .chat-messages {
@@ -511,13 +643,13 @@ button:active {
 
 .chat-message.user {
     background: rgb(68, 193, 231);
-    align-self: flex-end;
+    align-self: flex-start;
     font-family: 'Arial', sans-serif;
 }
 
 .chat-message.assistant {
     background: rgba(233, 97, 149, 0.973);
-    align-self: flex-start;
+    align-self: flex-end;
     font-family: 'Courier New', Courier, monospace;
 }
 
@@ -559,11 +691,12 @@ button:active {
     position: absolute;
     top: 0.5vh;
     left: 50%;
+    font-size: 1vw;
     transform: translateX(-50%);
     width: 19vw;
     color: #00ffff;
     height: 5vh;
-    background: linear-gradient(135deg, #0000FF, #FFFF00);
+    background: linear-gradient(135deg, #87CEEB, #4682B4, #00008B, #FFFF00, #FFA500);
     border-radius: 1vw;
     box-shadow: inset 0 0 0.5vw #FFFFFF;
     cursor: pointer;
@@ -575,13 +708,32 @@ button:active {
 }
 
 .block-toggle:hover {
-    background: linear-gradient(135deg, #0000FF, #FFFF00);
+    background: linear-gradient(135deg, #87CEEB, #4682B4, #00008B, #FFFF00, #FFA500);
 }
 
 .block-toggle:active {
-    background: linear-gradient(135deg, #0000FF, #FFFF00);
+    background: linear-gradient(135deg, #87CEEB, #4682B4, #00008B, #FFFF00, #FFA500);
 }
 
 .block-container.hidden {
     display: none;
 }
+
+.chat-block-container {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40vw;
+    height: 80%;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2vw;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+.chat-block-container .block {
+    width: 50%;
+    margin: 4vw 0;
+}
+
