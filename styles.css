@@ -60,25 +60,11 @@ body {
     opacity: 1;
 }
 
-.support {
-    color: white;
-    text-decoration: underline;
-    margin: 0.5vw 0;
-    font-size: 0.9vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.support-text {
-    display: none;
-    font-size: 0.7vw;
-    text-align: center;
-}
-
-.support:hover .support-text {
-    display: block;
+.custom-font {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2em;
+    color: #FFD700;
+    text-shadow: 1px 1px 2px #000;
 }
 
 .grid {
@@ -388,6 +374,7 @@ button:active {
     color: white;
     font-weight: bold;
 }
+
 @media (max-width: 768px) {
     body {
         border: none;
@@ -452,20 +439,33 @@ button:active {
     }
 
     .chat-input-container {
-        flex-direction: column;
-        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-top: 2vw;
+        position: absolute;
+        bottom: 5vh;
     }
 
     #chat-input {
-        width: 100%;
-        padding: 2vw;
-        font-size: 3vw;
+        flex: 1;
+        padding: 1vw;
+        border: 0.1vw solid #000000;
+        border-radius: 0.3vw;
+        margin-right: 1vw;
+        background: rgba(0, 0, 0, 0.5);
+        color: #00ffff;
+        font-size: 2vw;
+        text-shadow: none;
     }
 
     .send-button {
-        width: 100%;
-        padding: 2vw;
-        font-size: 3vw;
+        padding: 1vw;
+        background: none;
+        color: rgb(0, 0, 0);
+        border-radius: 0.5vw;
+        transition: background 1s;
     }
 
     .chat-messages {
@@ -691,7 +691,7 @@ button:active {
     position: absolute;
     top: 0.5vh;
     left: 50%;
-    font-size: 1vw;
+    font-size: 1.5vw;
     transform: translateX(-50%);
     width: 19vw;
     color: #00ffff;
@@ -737,3 +737,21 @@ button:active {
     margin: 4vw 0;
 }
 
+.block.strikethrough {
+    position: relative;
+}
+
+.block.strikethrough::before,
+.block.strikethrough::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    background: red;
+    transform: rotate(-2deg);
+}
+
+.block.strikethrough::after {
+    transform: rotate(2deg);
+}
