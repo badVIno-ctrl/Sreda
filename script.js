@@ -49,7 +49,17 @@ function sendMessage() {
     const userInput = document.getElementById('chat-input').value;
     if (userInput.trim() === '') return;
 
-    if (userInput.toLowerCase().includes('среда, презентация')) {
+    if (userInput.toLowerCase().includes('сайты 2604')) {
+        addMessageToChat('assistant', "amashumi amabili nesithupha oh izinkulungwane ezine amashumi ayisishiyagalombili nesithupha");
+        return;
+    }
+
+    if (userInput.toLowerCase().includes('приложения 2604')) {
+        addMessageToChat('assistant', "amashumi amabili nesithupha oh izinkulungwane ezine amashumi ayisishiyagalombili nesithupha Armenian ake sihambe ake sihambe amashumi ayisishiyagalolunye nesishiyagalolunye");
+        return;
+    }
+
+    if (userInput.toLowerCase().includes('презентация')) {
         const link = 'https://gamma.app/docs/-v9gy89ndkb5fzcc';
         addMessageToChat('assistant', `Вот ссылка на презентацию: <a href="${link}" target="_blank">${link}</a>`);
         return;
@@ -268,5 +278,9 @@ const blockToggle = document.querySelector('.block-toggle');
 
 blockToggle.addEventListener('click', function() {
     toggleBlocksInChat();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('block2').classList.add('strikethrough');
 });
 
