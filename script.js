@@ -18,9 +18,8 @@ document.getElementById('sreda-button').addEventListener('click', function() {
         isAnimating = false;
     }, 1000);
 });
-
 document.getElementById('block1').addEventListener('click', function() {
-    showModal('<img src="images/android_image.jpg" alt="Среда Android">', `Среда — это голосовой помощник, который может выполнять различные задачи, такие как отправка сообщений, напоминания. Просто скажите 'Среда' и дайте команду, и она это выполнит. Примеры команд: - Открой приложение - Напомни мне - Поставь будильник - Расскажи о. Как работать с Средой: - Скажите 'Среда' - Дайте команду - Среда выполнит вашу команду`, 'downloads/sreda_android.apk');
+    showModal('<img src="images/android_image.jpg" alt="Среда Android">', `Среда — это голосовой помощник, который может выполнять различные задачи, такие как отправка сообщений, напоминания. Просто скажите 'Среда' и дайте команду, и она это выполнит. Примеры команд: - Открой приложение - Напомни мне - Поставь будильник - Расскажи о. Как работать с Средой: - Скажите 'Среда' - Дайте команду - Среда выполнит вашу команду`, 'https://github.com/badVIno-ctrl/androidS/releases/tag/S0.02.05');
 });
 
 document.getElementById('block2').addEventListener('click', function() {
@@ -254,6 +253,12 @@ function showModal(title, description, link) {
         <p>${description}</p>
         <a href="javascript:void(0)" onclick="copyToClipboard('${link}')">${link}</a>
     `;
+    modalContent.innerHTML = `
+    <div class="modal-title">${title}</div>
+        <p>${description}</p>
+        <a href="${link}" target="_blank">Скачать</a>
+    `;
+    document.getElementById('modal').style.display = 'block';
     document.getElementById('modal').style.display = 'block';
 }
 
@@ -283,4 +288,3 @@ blockToggle.addEventListener('click', function() {
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('block2').classList.add('strikethrough');
 });
-
