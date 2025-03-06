@@ -18,6 +18,7 @@ document.getElementById('sreda-button').addEventListener('click', function() {
         isAnimating = false;
     }, 1000);
 });
+
 document.getElementById('block1').addEventListener('click', function() {
     showModal('<img src="images/android_image.jpg" alt="Среда Android">', `Среда — это голосовой помощник, который может выполнять различные задачи, такие как отправка сообщений, напоминания. Просто скажите 'Среда' и дайте команду, и она это выполнит. Примеры команд: - Открой приложение - Напомни мне - Поставь будильник - Расскажи о. Как работать с Средой: - Скажите 'Среда' - Дайте команду - Среда выполнит вашу команду`, 'https://github.com/badVIno-ctrl/androidS/releases/tag/S0.02.05');
 });
@@ -69,6 +70,7 @@ function sendMessage() {
 
     if (userInput.toLowerCase() === 'сбрось контекст') {
         chatHistory = [];
+        localStorage.removeItem('chatHistory'); // Очистка localStorage
         addMessageToChat('assistant', 'Контекст сброшен.');
     } else {
         sendMessageToMistral(userInput);
@@ -82,6 +84,11 @@ function addMessageToChat(sender, message) {
     messageElement.innerHTML = message;
     chatMessages.appendChild(messageElement);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Сохранение истории чата в localStorage
+    const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    chatHistory.push({ sender, message });
+    localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
 }
 
 async function sendMessageToMistral(message) {
@@ -114,7 +121,7 @@ async function sendMessageToMistral(message) {
             const data = await response.json();
             const assistantResponse = data.choices[0].message.content;
             addMessageToChat('assistant', assistantResponse);
-            chatHistory.push(`Пользователь: ${message}`, `Среда: ${assistantResponse}`);
+            chatHistory.push({ sender: 'user', message }, { sender: 'assistant', message: assistantResponse });
         } else {
             console.error('Ошибка ответа сервера:', response.status);
             addMessageToChat('assistant', 'Ошибка ответа сервера. Пожалуйста, попробуйте позже.');
@@ -286,5 +293,11 @@ blockToggle.addEventListener('click', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    chatHistory.forEach(({ sender, message }) => {
+        addMessageToChat(sender, message);
+    });
+
     document.getElementById('block2').classList.add('strikethrough');
 });
+
