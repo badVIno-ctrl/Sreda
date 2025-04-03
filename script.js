@@ -6,15 +6,11 @@ document.getElementById('sreda-button').addEventListener('click', function() {
     if (isAnimating) return;
     isAnimating = true;
     document.querySelector('.grid').style.transform = 'translateY(-100%)';
-    document.getElementById('sreda-button').style.display = 'none';
-    document.querySelector('.version-container').classList.remove('blurred');
+    document.getElementById('page1').style.display = 'none';
+    document.getElementById('page2').style.display = 'flex';
+    document.getElementById('page2').style.opacity = '1';
     document.getElementById('page2').classList.remove('blurred');
     setTimeout(() => {
-        document.getElementById('page1').style.display = 'none';
-        document.getElementById('page2').style.display = 'flex';
-        document.getElementById('page2').style.opacity = '1';
-        document.querySelector('.background-text').classList.add('visible');
-        distributeBadVInoTexts();
         isAnimating = false;
     }, 1000);
 });
@@ -70,7 +66,7 @@ function sendMessage() {
 
     if (userInput.toLowerCase() === 'сбрось контекст') {
         chatHistory = [];
-        localStorage.removeItem('chatHistory'); // Очистка localStorage
+        localStorage.removeItem('chatHistory');
         addMessageToChat('assistant', 'Контекст сброшен.');
     } else {
         sendMessageToMistral(userInput);
@@ -85,7 +81,6 @@ function addMessageToChat(sender, message) {
     chatMessages.appendChild(messageElement);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    // Сохранение истории чата в localStorage
     const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
     chatHistory.push({ sender, message });
     localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
@@ -139,7 +134,6 @@ function moveBlocksToChat() {
     chatBlockContainer.style.display = 'block';
     blocksMovedToChat = true;
 
-    // Add event listeners to the blocks in the chat
     const blocks = chatBlockContainer.getElementsByClassName('block');
     for (let i = 0; i < blocks.length; i++) {
         blocks[i].addEventListener('click', function() {
@@ -190,23 +184,17 @@ function navigateToPage(page) {
     isAnimating = true;
     if (page === 1) {
         document.querySelector('.grid').style.transform = 'translateY(0)';
-        document.getElementById('sreda-button').style.display = 'block';
-        document.querySelector('.version-container').classList.add('blurred');
-        document.getElementById('page2').classList.add('blurred');
         document.getElementById('page1').style.display = 'flex';
         document.getElementById('page2').style.display = 'none';
-        document.querySelector('.background-text').classList.remove('visible');
+        document.getElementById('page2').classList.add('blurred');
         setTimeout(() => {
             isAnimating = false;
         }, 1000);
     } else if (page === 2) {
         document.querySelector('.grid').style.transform = 'translateY(-100%)';
-        document.getElementById('sreda-button').style.display = 'none';
-        document.querySelector('.version-container').classList.remove('blurred');
-        document.getElementById('page2').classList.remove('blurred');
         document.getElementById('page1').style.display = 'none';
         document.getElementById('page2').style.display = 'flex';
-        document.querySelector('.background-text').classList.add('visible');
+        document.getElementById('page2').classList.remove('blurred');
         setTimeout(() => {
             isAnimating = false;
         }, 1000);
@@ -218,39 +206,6 @@ function copyToClipboard(text) {
     }, function(err) {
         console.error('Ошибка копирования: ', err);
     });
-}
-
-function distributeBadVInoTexts() {
-    const backgroundText = document.getElementById('background-text');
-    const numTexts = 50;
-    const minDistance = 50;
-
-    for (let i = 0; i < numTexts; i++) {
-        const span = document.createElement('span');
-        span.textContent = 'badVIno';
-        span.style.top = Math.random() * 100 + '%';
-        span.style.left = Math.random() * 100 + '%';
-        span.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
-
-        let overlaps = true;
-        while (overlaps) {
-            overlaps = false;
-            const spans = backgroundText.getElementsByTagName('span');
-            for (let j = 0; j < spans.length; j++) {
-                const rect1 = span.getBoundingClientRect();
-                const rect2 = spans[j].getBoundingClientRect();
-                const distance = Math.sqrt(Math.pow(rect1.left - rect2.left, 2) + Math.pow(rect1.top - rect2.top, 2));
-                if (distance < minDistance) {
-                    overlaps = true;
-                    span.style.top = Math.random() * 100 + '%';
-                    span.style.left = Math.random() * 100 + '%';
-                    break;
-                }
-            }
-        }
-
-        backgroundText.appendChild(span);
-    }
 }
 
 function showModal(title, description, link) {
@@ -266,7 +221,6 @@ function showModal(title, description, link) {
         <a href="${link}" target="_blank">Скачать</a>
     `;
     document.getElementById('modal').style.display = 'block';
-    document.getElementById('modal').style.display = 'block';
 }
 
 document.querySelector('.close-button').addEventListener('click', function() {
@@ -279,19 +233,6 @@ window.addEventListener('click', function(event) {
     }
 });
 
-function animateBackground() {
-    const body = document.body;
-    body.style.animation = 'backgroundAnimation 10s infinite alternate';
-}
-
-window.addEventListener('load', animateBackground);
-
-const blockToggle = document.querySelector('.block-toggle');
-
-blockToggle.addEventListener('click', function() {
-    toggleBlocksInChat();
-});
-
 document.addEventListener('DOMContentLoaded', function() {
     const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
     chatHistory.forEach(({ sender, message }) => {
@@ -301,3 +242,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('block2').classList.add('strikethrough');
 });
 
+document.querySelector('.block-toggle').addEventListener('click', function() {
+    toggleBlocksInChat();
+});
+
+document.getElementById('dark-mode-button').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+});

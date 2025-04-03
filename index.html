@@ -10,21 +10,17 @@
     <nav class="navbar">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
             <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2zm3.564 1.426L5.596 5 8 5.961 14.154 3.5zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z"/>
-          </svg>
+        </svg>
         <div class="support-container">
             <div class="support">
-                <a href="https://t.me/BasantroVI" target="_blank" class="custom-font">поддержка https://t.me/BasantroVI</a>
+                <a href="https://t.me/BasantroVI" target="_blank" class="custom-font">поддержка</a>
             </div>
             <div class="blog">
-                <a href="https://t.me/wensdaybadVIno" target="_blank" class="custom-font">блог разработчика https://t.me/wensdaybadVIno</a>
+                <a href="https://t.me/wensdaybadVIno" target="_blank" class="custom-font">блог разработчика</a>
             </div>
         </div>
     </nav>
     <div class="page" id="page1">
-        <div class="version-container blurred"></div>
-        <div class="sreda-button-container">
-            <button id="sreda-button" class="sreda-button">среда</button>
-        </div>
         <div class="grid">
             <div class="bar horizontal" style="grid-row: 1;"></div>
             <div class="bar horizontal" style="grid-row: 3;"></div>
@@ -50,6 +46,9 @@
             <div class="bar vertical" style="grid-column: 19;"></div>
             <div class="bar vertical" style="grid-column: 21;"></div>
         </div>
+        <div class="sreda-button-container">
+            <button id="sreda-button" class="sreda-button">среда</button>
+        </div>
     </div>
     <div class="page blurred" id="page2">
         <div class="block-container">
@@ -72,9 +71,10 @@
         <div class="chat-input-container">
             <input type="text" id="chat-input" placeholder="Введите сообщение...">
             <button id="send-button" class="send-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="bi bi-arrow-right-square" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-            </svg></button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="bi bi-arrow-right-square" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                </svg>
+            </button>
         </div>
         <div class="chat-messages" id="chat-messages"></div>
         <div class="chat-block-container" id="chat-block-container">
@@ -96,18 +96,46 @@
         </div>
     </div>
     <div class="block-toggle">описание</div>
+    <div class="theme-toggle" id="theme-toggle">
+        <button id="dark-mode-button">Темная тема</button>
+    </div>
     <div class="modal" id="modal">
         <span class="close-button">&times;</span>
         <div class="modal-content" id="modal-content"></div>
     </div>
-    <div class="special-design">
-        <div class="star" style="top: 10%; left: 20%;"></div>
-        <div class="star" style="top: 30%; left: 80%;"></div>
-        <div class="star" style="top: 60%; left: 50%;"></div>
-        <div class="star" style="top: 90%; left: 10%;"></div>
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
     </div>
     <script src="script.js"></script>
+    
 </body>
 </html>
-
-
