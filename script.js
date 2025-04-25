@@ -16,7 +16,7 @@ document.getElementById('sreda-button').addEventListener('click', function() {
 });
 
 document.getElementById('block1').addEventListener('click', function() {
-    showModal('<img src="images/android_image.jpg" alt="Среда Android">', `Среда — это голосовой помощник, который может выполнять различные задачи, такие как отправка сообщений, напоминания. Просто скажите 'Среда' и дайте команду, и она это выполнит. Примеры команд: - Открой приложение - Напомни мне - Поставь будильник - Расскажи о. Как работать с Средой: - Скажите 'Среда' - Дайте команду - Среда выполнит вашу команду`, 'https://github.com/badVIno-ctrl/androidS/releases/tag/S0.02.05');
+    showModal('<img src="images/android_image.jpg" alt="Среда Android">', `Среда — это голосовой помощник, который может выполнять различные задачи, такие как отправка сообщений, напоминания. Просто скажите 'Среда' и дайте команду, и она это выполнит. Примеры команд: - Открой приложение - Напомни мне - Поставь будильник - Расскажи о. Как работать с Средой: - Скажите 'Среда' - Дайте команду - Среда выполнит вашу команду`, 'https://github.com/badVIno-ctrl/androidS/releases/tag/s0.03.03');
 });
 
 document.getElementById('block2').addEventListener('click', function() {
