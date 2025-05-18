@@ -1,141 +1,717 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Среда</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <nav class="navbar">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
-            <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2zm3.564 1.426L5.596 5 8 5.961 14.154 3.5zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z"/>
-        </svg>
-        <div class="support-container">
-            <div class="support">
-                <a href="https://t.me/BasantroVI" target="_blank" class="custom-font">поддержка</a>
-            </div>
-            <div class="blog">
-                <a href="https://t.me/wensdaybadVIno" target="_blank" class="custom-font">блог разработчика</a>
-            </div>
-        </div>
-    </nav>
-    <div class="page" id="page1">
-        <div class="grid">
-            <div class="bar horizontal" style="grid-row: 1;"></div>
-            <div class="bar horizontal" style="grid-row: 3;"></div>
-            <div class="bar horizontal" style="grid-row: 5;"></div>
-            <div class="bar horizontal" style="grid-row: 7;"></div>
-            <div class="bar horizontal" style="grid-row: 9;"></div>
-            <div class="bar horizontal" style="grid-row: 11;"></div>
-            <div class="bar horizontal" style="grid-row: 13;"></div>
-            <div class="bar horizontal" style="grid-row: 15;"></div>
-            <div class="bar horizontal" style="grid-row: 17;"></div>
-            <div class="bar horizontal" style="grid-row: 19;"></div>
-            <div class="bar horizontal" style="grid-row: 21;"></div>
+    <title>Среда - Голосовой помощник будущего</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --text-dark: #e0e0e0;
+            --bg-light: #ffffff;
+            --text-light: #121212;
+            --accent: #6d28d9;
+            --assistant-bg: #1e1e1e;
+            --user-bg: #2d2d2d;
+        }
 
-            <div class="bar vertical" style="grid-column: 1;"></div>
-            <div class="bar vertical" style="grid-column: 3;"></div>
-            <div class="bar vertical" style="grid-column: 5;"></div>
-            <div class="bar vertical" style="grid-column: 7;"></div>
-            <div class="bar vertical" style="grid-column: 9;"></div>
-            <div class="bar vertical" style="grid-column: 11;"></div>
-            <div class="bar vertical" style="grid-column: 13;"></div>
-            <div class="bar vertical" style="grid-column: 15;"></div>
-            <div class="bar vertical" style="grid-column: 17;"></div>
-            <div class="bar vertical" style="grid-column: 19;"></div>
-            <div class="bar vertical" style="grid-column: 21;"></div>
-        </div>
-        <div class="sreda-button-container">
-            <button id="sreda-button" class="sreda-button">среда</button>
-        </div>
-    </div>
-    <div class="page blurred" id="page2">
-        <div class="block-container">
-            <div class="block" id="block1">
-                <img src="images/android_image.jpg" alt="Среда Android">
-                <p>Среда Android</p>
-                <div class="version-badge">0.02.05</div>
-            </div>
-            <div class="block strikethrough" id="block2">
-                <img src="images/win_image.jpg" alt="Среда Windows 10">
-                <p>Среда Windows 10</p>
-                <div class="version-badge">0.00.00</div>
-            </div>
-            <div class="block" id="block3">
-                <img src="images/shellooo.jpg" alt="Среда в очках">
-                <p>Среда в очках</p>
-                <div class="version-badge">glasses VI-2</div>
-            </div>
-        </div>
-        <div class="chat-input-container">
-            <input type="text" id="chat-input" placeholder="Введите сообщение...">
-            <button id="send-button" class="send-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="bi bi-arrow-right-square" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="chat-messages" id="chat-messages"></div>
-        <div class="chat-block-container" id="chat-block-container">
-            <div class="block" id="block1">
-                <img src="images/android_image.jpg" alt="Среда Android">
-                <p>Среда Android</p>
-                <div class="version-badge">0.02.05</div>
-            </div>
-            <div class="block strikethrough" id="block2">
-                <img src="images/win_image.jpg" alt="Среда Windows 10">
-                <p>Среда Windows 10</p>
-                <div class="version-badge">0.00.00</div>
-            </div>
-            <div class="block" id="block3">
-                <img src="images/shellooo.jpg" alt="Среда в очках">
-                <p>Среда в очках</p>
-                <div class="version-badge">glasses VI-2</div>
-            </div>
-        </div>
-    </div>
-    <div class="block-toggle">описание</div>
-    <div class="theme-toggle" id="theme-toggle">
-        <button id="dark-mode-button">Темная тема</button>
-    </div>
-    <div class="modal" id="modal">
-        <span class="close-button">&times;</span>
-        <div class="modal-content" id="modal-content"></div>
-    </div>
-    <div class="bubbles">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-    </div>
-    <script src="script.js"></script>
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body.light {
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            --assistant-bg: #f3f4f6;
+            --user-bg: #e5e7eb;
+        }
+
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(109, 40, 217, 0.1);
+            animation: float 15s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+            }
+        }
+
+        .page {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            transform: translateX(0);
+            opacity: 1;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .page.hidden {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateX(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 20px rgba(109, 40, 217, 0.5);
+        }
+
+        .light .modal-content {
+            background-color: var(--bg-light);
+            color: var(--text-light);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .light .close-modal {
+            color: var(--text-light);
+        }
+
+        .chat-message.user {
+            background-color: var(--user-bg);
+            color: var(--text-dark);
+            border-radius: 1rem 1rem 0 1rem;
+            align-self: flex-end;
+            max-width: 80%;
+        }
+
+        .chat-message.assistant {
+            background-color: var(--assistant-bg);
+            color: var(--text-dark);
+            border-radius: 1rem 1rem 1rem 0;
+            align-self: flex-start;
+            max-width: 80%;
+            font-family: 'Courier New', monospace;
+        }
+
+        .light .chat-message.user {
+            color: var(--text-light);
+        }
+
+        .light .chat-message.assistant {
+            color: var(--text-light);
+        }
+
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(109, 40, 217, 0.3);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(109, 40, 217, 0.2);
+            border-color: var(--accent);
+        }
+
+        .theme-toggle {
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chat-input {
+                flex-direction: column;
+            }
+            
+            .chat-input input {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .chat-input button {
+                width: 100%;
+            }
+        }
+
+        .swipe-up {
+            animation: swipeUp 0.5s ease;
+        }
+
+        .swipe-down {
+            animation: swipeDown 0.5s ease;
+        }
+
+        @keyframes swipeUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes swipeDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="dark">
+    <div class="grid-pattern"></div>
     
+    <div id="bubbles-container"></div>
+    
+    <div id="home-page" class="page">
+        <div class="container mx-auto px-4 py-8">
+            <header class="flex justify-between items-center mb-12">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center mr-4">
+                        <i class="fas fa-robot text-white text-xl"></i>
+                    </div>
+                    <h1 class="text-3xl font-bold">Среда</h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-6">
+                    <a href="https://t.me/BasantroVI" class="nav-link text-purple-400 hover:text-purple-300">Поддержка</a>
+                    <a href="https://t.me/wensdaybadVIno" class="nav-link text-purple-400 hover:text-purple-300">Блог разработчика</a>
+                    <button id="theme-toggle" class="theme-toggle w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center">
+                        <i class="fas fa-moon text-white"></i>
+                    </button>
+                </nav>
+                
+                <button class="md:hidden" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </header>
+            
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6">Голосовой помощник <span class="text-purple-500">будущего</span></h2>
+                <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto">Интеллектуальный ассистент, который понимает вас лучше других</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 product-grid mb-16">
+                <div class="product-card bg-gray-900 p-6 rounded-xl" data-modal="android">
+                    <div class="w-16 h-16 rounded-full bg-purple-500 flex items-center justify-center mb-4">
+                        <i class="fas fa-mobile-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Среда Android</h3>
+                    <p class="text-gray-400 mb-4">Полнофункциональная версия для мобильных устройств</p>
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition">
+                        Узнать больше
+                    </button>
+                </div>
+                
+                <div class="product-card bg-gray-900 p-6 rounded-xl" data-modal="windows">
+                    <div class="w-16 h-16 rounded-full bg-purple-500 flex items-center justify-center mb-4">
+                        <i class="fab fa-windows text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Среда Windows 10</h3>
+                    <p class="text-gray-400 mb-4">Десктопная версия для вашего компьютера</p>
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition">
+                        Узнать больше
+                    </button>
+                </div>
+                
+                <div class="product-card bg-gray-900 p-6 rounded-xl" data-modal="glasses">
+                    <div class="w-16 h-16 rounded-full bg-purple-500 flex items-center justify-center mb-4">
+                        <i class="fas fa-glasses text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Среда в очках</h3>
+                    <p class="text-gray-400 mb-4">Инновационное решение для повседневного использования</p>
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition">
+                        Узнать больше
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button id="start-chat" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full text-lg font-bold transition transform hover:scale-105">
+                    Начать общение с Среда <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="chat-page" class="page hidden">
+        <div class="container mx-auto px-4 py-8 h-full flex flex-col" style="min-height: 100vh;">
+            <header class="flex justify-between items-center mb-6">
+                <button id="back-button" class="flex items-center text-purple-400 hover:text-purple-300">
+                    <i class="fas fa-arrow-left mr-2"></i> Назад
+                </button>
+                
+                <h1 class="text-2xl font-bold">Чат с Среда</h1>
+                
+                <button id="theme-toggle-chat" class="theme-toggle w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center">
+                    <i class="fas fa-moon text-white"></i>
+                </button>
+            </header>
+            
+            <div id="chat-container" class="flex-1 overflow-y-auto mb-6 space-y-4 p-4">
+            </div>
+            
+            <div id="products-sidebar" class="hidden mb-6">
+                <h3 class="text-lg font-bold mb-4">Наши продукты</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="product-card-sm bg-gray-800 p-4 rounded-lg cursor-pointer" data-modal="android">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center mr-3">
+                                <i class="fas fa-mobile-alt text-white"></i>
+                            </div>
+                            <span>Среда Android</span>
+                        </div>
+                    </div>
+                    <div class="product-card-sm bg-gray-800 p-4 rounded-lg cursor-pointer" data-modal="windows">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center mr-3">
+                                <i class="fab fa-windows text-white"></i>
+                            </div>
+                            <span>Среда Windows</span>
+                        </div>
+                    </div>
+                    <div class="product-card-sm bg-gray-800 p-4 rounded-lg cursor-pointer" data-modal="glasses">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center mr-3">
+                                <i class="fas fa-glasses text-white"></i>
+                            </div>
+                            <span>Среда в очках</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input flex">
+                <input id="message-input" type="text" placeholder="Напишите сообщение..." 
+                    class="flex-1 bg-gray-800 text-white px-4 py-3 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <button id="send-button" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-r-lg transition">
+                    Отправить <i class="fas fa-paper-plane ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="android-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/3">
+                    <div class="w-full h-48 md:h-64 bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-mobile-alt text-white text-6xl"></i>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <h3 class="text-2xl font-bold mb-4">Среда Android</h3>
+                    <p class="mb-6">Полнофункциональная версия голосового помощника "Среда" для вашего Android-устройства. С поддержкой всех современных функций и постоянными обновлениями.</p>
+                    <a href="https://github.com/badVIno-ctrl/androidS/releases/tag/s0.03.03" class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition">
+                        Скачать на GitHub <i class="fas fa-download ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="windows-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/3">
+                    <div class="w-full h-48 md:h-64 bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fab fa-windows text-white text-6xl"></i>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <h3 class="text-2xl font-bold mb-4">Среда Windows 10</h3>
+                    <p class="mb-6">Десктопная версия голосового помощника "Среда" для Windows 10. Интеграция с системой, голосовое управление компьютером и многое другое.</p>
+                    <a href="sreda_windows.exe" class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition">
+                        Скачать для Windows <i class="fas fa-download ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="glasses-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/3">
+                    <div class="w-full h-48 md:h-64 bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-glasses text-white text-6xl"></i>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <h3 class="text-2xl font-bold mb-4">Среда в очках</h3>
+                    <p class="mb-6">Очки со Средой. Вы устанавливаете приложение "Среда" под андроид, подключаете очки по Bluetooth и вот чудо, работает.</p>
+                    <a href="https://t.me/BasantroVI" class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition">
+                        Заказать в Telegram <i class="fab fa-telegram ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function initBubbles() {
+            const container = document.getElementById('bubbles-container');
+            const bubbleCount = window.innerWidth < 768 ? 5 : 10;
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                const size = Math.random() * 100 + 50;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const delay = Math.random() * 10;
+                
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${left}%`;
+                bubble.style.top = `${Math.random() * 100 + 100}%`;
+                bubble.style.animationDuration = `${animationDuration}s`;
+                bubble.style.animationDelay = `-${delay}s`;
+                
+                container.appendChild(bubble);
+            }
+        }
+        
+        function toggleTheme() {
+            document.body.classList.toggle('light');
+            
+            const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-chat');
+            themeToggles.forEach(toggle => {
+                const icon = toggle.querySelector('i');
+                if (document.body.classList.contains('light')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            });
+            
+            localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+        }
+        
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            const page = document.getElementById(pageId);
+            page.classList.remove('hidden');
+            
+            if (pageId === 'chat-page') {
+                loadChatHistory();
+                page.classList.add('swipe-up');
+                setTimeout(() => {
+                    page.classList.remove('swipe-up');
+                }, 500);
+            } else {
+                page.classList.add('swipe-down');
+                setTimeout(() => {
+                    page.classList.remove('swipe-down');
+                }, 500);
+            }
+        }
+        
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+        }
+        
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessageToChat('user', message);
+            input.value = '';
+            
+            if (message.toLowerCase() === 'презентация') {
+                addMessageToChat('assistant', 'Презентация проекта: https://gamma.app/docs/-v9gy89ndkb5fzcc');
+                return;
+            }
+            
+            if (message.toLowerCase() === 'сайты 2604') {
+                addMessageToChat('assistant', '2604 - это код для специальных команд. Сайты: sreda-ai.ru, sreda-support.com');
+                return;
+            }
+            
+            if (message.toLowerCase() === 'приложения 2604') {
+                addMessageToChat('assistant', '2604 - это код для специальных команд. Приложения: Среда Android, Среда Windows, Среда в очках');
+                return;
+            }
+            
+            if (message.toLowerCase() === 'сбрось контекст') {
+                localStorage.removeItem('chatHistory');
+                document.getElementById('chat-container').innerHTML = '';
+                addMessageToChat('assistant', 'Контекст чата очищен. Чат начат заново.');
+                return;
+            }
+            
+            const loadingId = 'loading-' + Date.now();
+            document.getElementById('chat-container').innerHTML += `
+                <div id="${loadingId}" class="chat-message assistant p-4 mb-4">
+                    <div class="flex space-x-2">
+                        <div class="w-2 h-2 rounded-full bg-purple-400 animate-bounce"></div>
+                        <div class="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style="animation-delay: 0.2s"></div>
+                        <div class="w-2 h-2 rounded-full bg-purple-400 animate-bounce" style="animation-delay: 0.4s"></div>
+                    </div>
+                </div>
+            `;
+            
+            scrollChatToBottom();
+            
+            try {
+                const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer DlWJGSjUANbZ5tRjXI3nHhA8AC6S44OX'
+                    },
+                    body: JSON.stringify({
+                        model: 'mistral-large-latest',
+                        messages: getChatHistoryForAPI(),
+                        temperature: 0.7
+                    })
+                });
+                
+                const data = await response.json();
+                
+                document.getElementById(loadingId)?.remove();
+                
+                if (data.choices && data.choices.length > 0) {
+                    addMessageToChat('assistant', data.choices[0].message.content);
+                    
+                    if (document.querySelectorAll('.chat-message').length === 2) {
+                        document.getElementById('products-sidebar').classList.remove('hidden');
+                    }
+                } else {
+                    addMessageToChat('assistant', 'Извините, не удалось получить ответ. Попробуйте еще раз.');
+                }
+            } catch (error) {
+                console.error('Ошибка при запросе к API:', error);
+                document.getElementById(loadingId)?.remove();
+                addMessageToChat('assistant', 'Произошла ошибка при подключении к серверу. Пожалуйста, попробуйте позже.');
+            }
+        }
+        
+        function addMessageToChat(role, content) {
+            const chatContainer = document.getElementById('chat-container');
+            const messageClass = role === 'user' ? 'user' : 'assistant';
+            
+            chatContainer.innerHTML += `
+                <div class="chat-message ${messageClass} p-4 mb-4">
+                    ${content}
+                </div>
+            `;
+            
+            scrollChatToBottom();
+            saveChatToHistory(role, content);
+        }
+        
+        function scrollChatToBottom() {
+            const chatContainer = document.getElementById('chat-container');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        function getChatHistoryForAPI() {
+            const history = JSON.parse(localStorage.getItem('chatHistory') || '[]');
+            return history.map(msg => ({
+                role: msg.role === 'user' ? 'user' : 'assistant',
+                content: msg.content
+            }));
+        }
+        
+        function saveChatToHistory(role, content) {
+            let history = JSON.parse(localStorage.getItem('chatHistory') || '[]');
+            history.push({ role, content });
+            localStorage.setItem('chatHistory', JSON.stringify(history));
+        }
+        
+        function loadChatHistory() {
+            const history = JSON.parse(localStorage.getItem('chatHistory') || '[]');
+            const chatContainer = document.getElementById('chat-container');
+            chatContainer.innerHTML = '';
+            
+            history.forEach(msg => {
+                chatContainer.innerHTML += `
+                    <div class="chat-message ${msg.role} p-4 mb-4">
+                        ${msg.content}
+                    </div>
+                `;
+            });
+            
+            if (history.length > 0) {
+                document.getElementById('products-sidebar').classList.remove('hidden');
+            }
+            
+            scrollChatToBottom();
+        }
+        
+        function initSwipeEvents() {
+            let startY = 0;
+            let endY = 0;
+            
+            document.addEventListener('touchstart', (e) => {
+                startY = e.touches[0].clientY;
+            });
+            
+            document.addEventListener('touchmove', (e) => {
+                endY = e.touches[0].clientY;
+            });
+            
+            document.addEventListener('touchend', () => {
+                const diff = startY - endY;
+                
+                if (diff > 100 && !document.getElementById('home-page').classList.contains('hidden')) {
+                    showPage('chat-page');
+                }
+                
+                if (diff < -100 && !document.getElementById('chat-page').classList.contains('hidden')) {
+                    showPage('home-page');
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            initBubbles();
+            initSwipeEvents();
+            
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light');
+                document.querySelectorAll('#theme-toggle, #theme-toggle-chat').forEach(toggle => {
+                    const icon = toggle.querySelector('i');
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                });
+            }
+            
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+            document.getElementById('theme-toggle-chat').addEventListener('click', toggleTheme);
+            document.getElementById('start-chat').addEventListener('click', () => showPage('chat-page'));
+            document.getElementById('back-button').addEventListener('click', () => showPage('home-page'));
+            
+            document.getElementById('send-button').addEventListener('click', sendMessage);
+            document.getElementById('message-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            document.querySelectorAll('[data-modal]').forEach(element => {
+                element.addEventListener('click', () => {
+                    openModal(element.dataset.modal + '-modal');
+                });
+            });
+            
+            document.querySelectorAll('.close-modal').forEach(element => {
+                element.addEventListener('click', () => {
+                    const modal = element.closest('.modal');
+                    closeModal(modal.id);
+                });
+            });
+            
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal(modal.id);
+                    }
+                });
+            });
+            
+            if (!localStorage.getItem('chatHistory') && document.getElementById('chat-container').children.length === 0) {
+                addMessageToChat('assistant', 'Привет! Я Среда, ваш голосовой помощник. Чем могу помочь?');
+            }
+        });
+    </script>
 </body>
 </html>
