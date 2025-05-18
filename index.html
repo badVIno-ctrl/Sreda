@@ -200,6 +200,48 @@
             width: 100%;
         }
 
+        .coming-soon {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon::after {
+            content: '✖';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: #ef4444;
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        .coming-soon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 5px #6d28d9, 0 0 10px #6d28d9, 0 0 15px #6d28d9;
+            animation: neon-pulse 2s infinite alternate;
+        }
+
+        @keyframes neon-pulse {
+            from {
+                text-shadow: 0 0 5px #6d28d9, 0 0 10px #6d28d9, 0 0 15px #6d28d9;
+            }
+            to {
+                text-shadow: 0 0 10px #6d28d9, 0 0 20px #6d28d9, 0 0 30px #6d28d9;
+            }
+        }
+
         @media (max-width: 768px) {
             .product-grid {
                 grid-template-columns: 1fr;
@@ -250,12 +292,12 @@
                     <div class="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center mr-4">
                         <i class="fas fa-robot text-white text-xl"></i>
                     </div>
-                    <h1 class="text-3xl font-bold">Среда</h1>
+                    <h1 class="text-3xl font-bold neon-text">Среда</h1>
                 </div>
                 
                 <nav class="hidden md:flex space-x-6">
-                    <a href="https://t.me/BasantroVI" class="nav-link text-purple-400 hover:text-purple-300">Поддержка</a>
-                    <a href="https://t.me/wensdaybadVIno" class="nav-link text-purple-400 hover:text-purple-300">Блог разработчика</a>
+                    <a href="https://web.telegram.org/k/#@GemHunter_DEX" class="nav-link text-purple-400 hover:text-purple-300">Поддержка</a>
+                    <a href="https://t.me/+Swuj7n7UEUdjYjBi" class="nav-link text-purple-400 hover:text-purple-300">Блог разработчика</a>
                     <button id="theme-toggle" class="theme-toggle w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center">
                         <i class="fas fa-moon text-white"></i>
                     </button>
@@ -283,7 +325,7 @@
                     </button>
                 </div>
                 
-                <div class="product-card bg-gray-900 p-6 rounded-xl" data-modal="windows">
+                <div class="product-card bg-gray-900 p-6 rounded-xl coming-soon" data-modal="windows">
                     <div class="w-16 h-16 rounded-full bg-purple-500 flex items-center justify-center mb-4">
                         <i class="fab fa-windows text-white text-2xl"></i>
                     </div>
@@ -308,7 +350,7 @@
             
             <div class="text-center">
                 <button id="start-chat" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full text-lg font-bold transition transform hover:scale-105">
-                    Начать общение с Среда <i class="fas fa-arrow-right ml-2"></i>
+                    Начать общение со Средой <i class="fas fa-arrow-right ml-2"></i>
                 </button>
             </div>
         </div>
@@ -321,7 +363,7 @@
                     <i class="fas fa-arrow-left mr-2"></i> Назад
                 </button>
                 
-                <h1 class="text-2xl font-bold">Чат с Среда</h1>
+                <h1 class="text-2xl font-bold">Чат со Средой</h1>
                 
                 <button id="theme-toggle-chat" class="theme-toggle w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center">
                     <i class="fas fa-moon text-white"></i>
@@ -332,7 +374,7 @@
             </div>
             
             <div id="products-sidebar" class="hidden mb-6">
-                <h3 class="text-lg font-bold mb-4">Наши продукты</h3>
+                <h3 class="text-lg font-bold mb-4">Мои продукты</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="product-card-sm bg-gray-800 p-4 rounded-lg cursor-pointer" data-modal="android">
                         <div class="flex items-center">
@@ -342,7 +384,7 @@
                             <span>Среда Android</span>
                         </div>
                     </div>
-                    <div class="product-card-sm bg-gray-800 p-4 rounded-lg cursor-pointer" data-modal="windows">
+                    <div class="product-card-sm bg-gray-800 p-4 rounded-lg cursor-pointer coming-soon" data-modal="windows">
                         <div class="flex items-center">
                             <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center mr-3">
                                 <i class="fab fa-windows text-white"></i>
