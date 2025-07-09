@@ -14,39 +14,47 @@ let autoOpenToggle;
 let speakResponseEnabled = true;
 let autoOpenEnabled = false;
 
+const MISTRAL_API_KEY_PRIMARY = 'iWyckB3Mn6SAp4ojlxK9zKIKfTq4XMXO';
+const MISTRAL_API_KEY_SECONDARY = 'vEukHIlqO6YhxQq2UmIhcLPDu3RJalPN';
+
+let recognition;
+let isVoiceInputActive = false;
+let speechRecognitionInterval;
+
 function updateMicButtonState() {
     if (micButtonChat) {
         const icon = micButtonChat.querySelector('i');
         if (isListening) {
             icon.classList.remove('fa-microphone-slash');
             icon.classList.add('fa-microphone');
-            micButtonChat.classList.add('active'); 
+            micButtonChat.classList.add('active');
         } else {
             icon.classList.remove('fa-microphone');
             icon.classList.add('fa-microphone-slash');
-            micButtonChat.classList.remove('active'); 
+            micButtonChat.classList.remove('active');
         }
     }
 }
 
-
 function initBubbles() {
     const container = document.getElementById('bubbles-container');
-    const bubbleCount = window.innerWidth < 768 ? 5 : 10;
+    container.innerHTML = '';
+    const bubbleCount = 20;
 
     for (let i = 0; i < bubbleCount; i++) {
         const bubble = document.createElement('div');
         bubble.className = 'bubble';
 
-        const size = Math.random() * 100 + 50;
+        const size = Math.random() * 150 + 50;
         const left = Math.random() * 100;
         const animationDuration = Math.random() * 20 + 10;
         const delay = Math.random() * 10;
+        const startTop = Math.random() * 100;
 
         bubble.style.width = `${size}px`;
         bubble.style.height = `${size}px`;
         bubble.style.left = `${left}%`;
-        bubble.style.top = `${Math.random() * 100 + 100}%`;
+        bubble.style.top = `${startTop}%`;
         bubble.style.animationDuration = `${animationDuration}s`;
         bubble.style.animationDelay = `-${delay}s`;
 
@@ -86,13 +94,11 @@ function showPage(pageId) {
         page.classList.add('swipe-up');
         setTimeout(() => {
             page.classList.remove('swipe-up');
-            document.body.style.overflow = 'hidden';
         }, 500);
     } else {
         page.classList.add('swipe-down');
         setTimeout(() => {
             page.classList.remove('swipe-down');
-            document.body.style.overflow = '';
         }, 500);
     }
 }
@@ -118,10 +124,10 @@ function speakText(text) {
 
         const voices = speechSynthesis.getVoices();
         const russianVoices = voices.filter(voice => voice.lang === 'ru-RU');
-        
+
         const preferredVoice = russianVoices.find(voice => voice.name.includes('Google') && voice.name.includes('Russian')) ||
-                               russianVoices.find(voice => voice.name.includes('Microsoft') && voice.name.includes('Russian')) ||
-                               russianVoices[0]; 
+            russianVoices.find(voice => voice.name.includes('Microsoft') && voice.name.includes('Russian')) ||
+            russianVoices[0];
 
         if (preferredVoice) {
             utterance.voice = preferredVoice;
@@ -146,7 +152,7 @@ function speakText(text) {
             }
         };
 
-        speechSynthesis.cancel(); 
+        speechSynthesis.cancel();
         speechSynthesis.speak(utterance);
     } else {
         console.warn('SpeechSynthesis API not supported in this browser.');
@@ -162,16 +168,20 @@ function stopSpeaking() {
     }
 }
 
-async function _internalSendMessage(message, isVoiceInputRequest) {
-    console.log("Отправка сообщения в Mistral API:", message);
-
+async function _internalSendMessage(message, isVoiceInputRequest, useSecondaryKey = false) {
     const loadingId = 'loading-' + Date.now();
-    document.getElementById('chat-container').innerHTML += `
-        <div id="${loadingId}" class="chat-message assistant p-2 mb-2 loading-dots">
-            <div class="flex space-x-1">
-                <div class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce"></div>
-                <div class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce" style="animation-delay: 0.2s"></div>
-                <div class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce" style="animation-delay: 0.4s"></div>
+    const chatContainer = document.getElementById('chat-container');
+    chatContainer.innerHTML += `
+        <div id="${loadingId}" class="chat-message-wrapper assistant">
+            <div class="avatar-container">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="chat-message assistant p-2 mb-2 loading-dots">
+                <div class="flex space-x-1">
+                    <div class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-bounce" style="animation-delay: 0.4s"></div>
+                </div>
             </div>
         </div>
     `;
@@ -181,55 +191,56 @@ async function _internalSendMessage(message, isVoiceInputRequest) {
     try {
         let chatHistory = getChatHistoryForAPI();
         if (!chatHistory.length || chatHistory[chatHistory.length - 1].content !== message || chatHistory[chatHistory.length - 1].role !== 'user') {
-             chatHistory.push({ role: 'user', content: message });
+            chatHistory.push({ role: 'user', content: message });
         }
-        
-        console.log("Полная история чата для Mistral API:", JSON.stringify(chatHistory));
+
+        const apiKey = useSecondaryKey ? MISTRAL_API_KEY_SECONDARY : MISTRAL_API_KEY_PRIMARY;
 
         const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer iWyckB3Mn6SAp4ojlxK9zKIKfTq4XMXO'
+                'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
                 model: 'mistral-large-latest',
                 messages: chatHistory,
-                temperature: 0.5 
+                temperature: 0.5
             })
         });
 
         const data = await response.json();
-        console.log("Ответ от Mistral API:", data);
 
         document.getElementById(loadingId)?.remove();
 
         if (response.ok && data.choices && data.choices.length > 0) {
             const assistantResponse = data.choices[0].message.content;
             addMessageToChat('assistant', assistantResponse);
-            
+
             if (isVoiceInputRequest) {
                 speakText(assistantResponse);
             }
 
             if (document.querySelectorAll('.chat-message').length >= 2) {
-                       document.getElementById('products-sidebar').classList.remove('hidden');
+                document.getElementById('products-sidebar').classList.remove('hidden');
             }
         } else {
-            console.error("Ошибка: В ответе Mistral AI отсутствуют 'choices' или они пусты, либо HTTP статус не OK.", data);
-            let errorMessage = 'Извините, не удалось получить ответ. Попробуйте еще раз.';
-            if (response.status === 429) {
-                errorMessage = 'Вы слишком часто отправляете запросы. Пожалуйста, подождите немного и попробуйте снова.';
-            } else if (data.error && data.error.message) {
-                errorMessage = `Ошибка от API: ${data.error.message}`;
-            }
-            addMessageToChat('assistant', errorMessage);
-            if (isVoiceInputRequest) {
-                speakText(errorMessage);
+            if (response.status === 429 && !useSecondaryKey) {
+                return _internalSendMessage(message, isVoiceInputRequest, true);
+            } else {
+                let errorMessage = 'Извините, не удалось получить ответ. Попробуйте еще раз.';
+                if (response.status === 429) {
+                    errorMessage = 'Вы слишком часто отправляете запросы. Пожалуйста, подождите немного и попробуйте снова.';
+                } else if (data.error && data.error.message) {
+                    errorMessage = `Ошибка от API: ${data.error.message}`;
+                }
+                addMessageToChat('assistant', errorMessage);
+                if (isVoiceInputRequest) {
+                    speakText(errorMessage);
+                }
             }
         }
     } catch (error) {
-        console.error("Произошла ошибка при подключении к серверу Mistral AI:", error);
         document.getElementById(loadingId)?.remove();
         addMessageToChat('assistant', 'Произошла ошибка при подключении к серверу. Пожалуйста, попробуйте позже.');
         if (isVoiceInputRequest) {
@@ -238,33 +249,174 @@ async function _internalSendMessage(message, isVoiceInputRequest) {
     }
 }
 
+function levenshteinDistance(a, b) {
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+
+    const matrix = [];
+
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1,
+                    Math.min(matrix[i][j - 1] + 1,
+                        matrix[i - 1][j] + 1));
+            }
+        }
+    }
+
+    return matrix[b.length][a.length];
+}
+
+function processCommand(message) {
+    const lowerCaseMessage = message.toLowerCase();
+    const words = lowerCaseMessage.split(/\s+/);
+
+    const openKeywords = ['откр', 'открыть', 'открой', 'открывай', 'запуск', 'запусти', 'запустить', 'зайди', 'зайти', 'перейти', 'перейди'];
+    const services = {
+        'телеграм': 'https://web.telegram.org/',
+        'youtube': 'https://www.youtube.com/',
+        'google': 'https://www.google.com/',
+        'википедия': 'https://ru.wikipedia.org/',
+        'яндекс': 'https://yandex.ru/',
+        'twitch': 'https://www.twitch.tv/',
+        'instagram': 'https://www.instagram.com/',
+        'вконтакте': 'https://vk.com/',
+        'facebook': 'https://www.facebook.com/',
+        'twitter': 'https://twitter.com/',
+        'reddit': 'https://www.reddit.com/',
+        'github': 'https://github.com/',
+        'amazon': 'https://www.amazon.com/',
+        'ozon': 'https://www.ozon.ru/',
+        'wildberries': 'https://www.wildberries.ru/',
+        'netflix': 'https://www.netflix.com/',
+        'spotify': 'https://open.spotify.com/',
+        'figma': 'https://www.figma.com/',
+        'gmail': 'https://mail.google.com/',
+        'почта': 'https://mail.google.com/',
+        'гугл карты': 'https://www.google.com/maps/'
+    };
+
+    const serviceSynonyms = {
+        'телеграм': ['телеграм', 'тг'],
+        'youtube': ['ютуб', 'youtube'],
+        'google': ['гугл', 'google'],
+        'википедия': ['википедия', 'вики', 'wikipedia'],
+        'яндекс': ['яндекс', 'yandex'],
+        'twitch': ['твич', 'twitch'],
+        'instagram': ['инстаграм', 'инста', 'instagramm'],
+        'вконтакте': ['вк', 'вконтакте', 'vk'],
+        'facebook': ['фейсбук', 'facebook'],
+        'twitter': ['твиттер', 'twitter'],
+        'reddit': ['реддит', 'reddit'],
+        'github': ['гитхаб', 'github'],
+        'amazon': ['амазон', 'amazon'],
+        'ozon': ['озон', 'ozon'],
+        'wildberries': ['вайлдберриз', 'вб', 'wildberries'],
+        'netflix': ['нетфликс', 'netflix'],
+        'spotify': ['спотифай', 'spotify'],
+        'figma': ['фигма', 'figma'],
+        'gmail': ['gmail', 'джимейл'],
+        'почта': ['почта', 'mail'],
+        'гугл карты': ['гугл карты', 'карты гугл', 'карты', 'google maps']
+    };
+
+    const MAX_LEVENSHTEIN_DISTANCE = 2;
+
+    let foundOpenCommand = false;
+    let targetService = null;
+
+    for (const word of words) {
+        for (const openKeyword of openKeywords) {
+            if (word.includes(openKeyword) || levenshteinDistance(word, openKeyword) <= MAX_LEVENSHTEIN_DISTANCE) {
+                foundOpenCommand = true;
+                break;
+            }
+        }
+        if (foundOpenCommand) break;
+    }
+
+    if (!foundOpenCommand) {
+        return false;
+    }
+
+    let minDistance = Infinity;
+    let closestServiceName = null;
+
+    for (const serviceName in serviceSynonyms) {
+        for (const synonym of serviceSynonyms[serviceName]) {
+            for (const messageWord of words) {
+                const distance = levenshteinDistance(messageWord, synonym);
+                if (distance <= MAX_LEVENSHTEIN_DISTANCE && distance < minDistance) {
+                    minDistance = distance;
+                    closestServiceName = serviceName;
+                }
+            }
+        }
+    }
+
+    if (closestServiceName) {
+        const url = services[closestServiceName];
+        if (url) {
+            window.open(url, '_blank');
+            addMessageToChat('assistant', `Открываю ${closestServiceName.charAt(0).toUpperCase() + closestServiceName.slice(1)}!`);
+            return true;
+        }
+    }
+
+    return false;
+}
+
 async function sendMessage(isVoiceInput = false, messageText = '') {
     const input = document.getElementById('message-input');
-    const message = messageText || input.value.trim(); 
+    const message = messageText || input.value.trim();
 
     if (!message) {
         return;
     }
 
-    if (!isVoiceInput) { 
+    if (!isVoiceInput) {
         addMessageToChat('user', message);
         input.value = '';
     }
-    
+
+    if (processCommand(message)) {
+        return;
+    }
+
     if (message) {
-        await _internalSendMessage(message, isVoiceInput); 
+        await _internalSendMessage(message, isVoiceInput);
     }
 }
 
 function addMessageToChat(role, content) {
     const chatContainer = document.getElementById('chat-container');
     const messageClass = role === 'user' ? 'user' : 'assistant';
+    const avatarContent = role === 'user' ? 'Вы' : '<i class="fas fa-robot"></i>';
 
-    chatContainer.innerHTML += `
+    const messageWrapper = document.createElement('div');
+    messageWrapper.className = `chat-message-wrapper ${messageClass}`;
+
+    messageWrapper.innerHTML = `
+        <div class="avatar-container">
+            ${avatarContent}
+        </div>
         <div class="chat-message ${messageClass} p-2 mb-2">
             ${content}
         </div>
     `;
+    
+    chatContainer.appendChild(messageWrapper);
 
     scrollChatToBottom();
     saveChatToHistory(role, content);
@@ -281,7 +433,6 @@ function getChatHistoryForAPI() {
         history = JSON.parse(localStorage.getItem('chatHistory') || '[]');
         history = history.filter(msg => msg && msg.role && msg.content !== undefined && msg.content !== null);
     } catch (e) {
-        console.error("Ошибка при парсинге истории чата из localStorage:", e);
         history = [];
         localStorage.removeItem('chatHistory');
     }
@@ -296,8 +447,8 @@ function saveChatToHistory(role, content) {
     let history = [];
     try {
         history = JSON.parse(localStorage.getItem('chatHistory') || '[]');
-    } catch (e) {
-        console.error("Ошибка при загрузке истории чата для сохранения:", e);
+    }
+    catch (e) {
         history = [];
     }
     history.push({ role, content });
@@ -315,7 +466,6 @@ function loadChatHistory() {
             throw new Error("Неверный формат истории чата.");
         }
     } catch (e) {
-        console.error("Ошибка при загрузке истории чата:", e);
         history = [];
         localStorage.removeItem('chatHistory');
     }
@@ -324,11 +474,18 @@ function loadChatHistory() {
         addMessageToChat('assistant', 'Привет! Я Среда, ваш голосовой помощник. Скажите "Среда", чтобы я вас услышала!');
     } else {
         history.forEach(msg => {
-            chatContainer.innerHTML += `
+            const avatarContent = msg.role === 'user' ? 'Вы' : '<i class="fas fa-robot"></i>';
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = `chat-message-wrapper ${msg.role}`;
+            messageWrapper.innerHTML = `
+                <div class="avatar-container">
+                    ${avatarContent}
+                </div>
                 <div class="chat-message ${msg.role} p-2 mb-2">
                     ${msg.content}
                 </div>
             `;
+            chatContainer.appendChild(messageWrapper);
         });
     }
 
@@ -341,7 +498,7 @@ function loadChatHistory() {
 
 function clearChatHistory() {
     localStorage.removeItem('chatHistory');
-    loadChatHistory(); 
+    loadChatHistory();
     closeModal('clear-chat-confirm-modal');
 }
 
@@ -411,11 +568,106 @@ function setupSettingsListeners() {
     }
 }
 
+function initializeSpeechRecognition() {
+    if ('webkitSpeechRecognition' in window) {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'ru-RU';
+
+        recognition.onstart = () => {
+            isListening = true;
+            isVoiceInputActive = true;
+            updateMicButtonState();
+            speechRecognitionInterval = setInterval(() => {
+                if (!isListening && isVoiceInputActive) {
+                    startListening();
+                }
+            }, 1000);
+        };
+
+        recognition.onresult = (event) => {
+            let finalTranscript = '';
+
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) {
+                    finalTranscript += event.results[i][0].transcript;
+                }
+            }
+
+            if (finalTranscript) {
+                handleVoiceInput(finalTranscript.trim());
+            }
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            isListening = false;
+            isVoiceInputActive = false;
+            updateMicButtonState();
+            clearInterval(speechRecognitionInterval);
+            if (event.error === 'not-allowed') {
+                speakText('Доступ к микрофону не разрешен. Пожалуйста, разрешите доступ к микрофону в настройках браузера.');
+            }
+        };
+
+        recognition.onend = () => {
+            isListening = false;
+            updateMicButtonState();
+            clearInterval(speechRecognitionInterval);
+            if (isVoiceInputActive) {
+                startListening();
+            }
+        };
+    } else {
+        console.warn('Web Speech API is not supported in this browser.');
+    }
+}
+
+function startListening() {
+    if (recognition) {
+        try {
+            isVoiceInputActive = true;
+            recognition.start();
+        } catch (e) {
+            if (e.name === 'InvalidStateError') {
+                recognition.stop();
+                setTimeout(() => {
+                    if (isVoiceInputActive) {
+                        recognition.start();
+                    }
+                }, 100);
+            }
+        }
+    }
+}
+
+function stopListening() {
+    if (recognition) {
+        isVoiceInputActive = false;
+        recognition.stop();
+        clearInterval(speechRecognitionInterval);
+    }
+}
+
+function toggleMic() {
+    if (isListening) {
+        stopListening();
+    } else {
+        startListening();
+    }
+}
+
+async function handleVoiceInput(transcript) {
+    addMessageToChat('user', transcript);
+    await sendMessage(true, transcript);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     initBubbles();
     initSwipeEvents();
     loadSettings();
+    initializeSpeechRecognition();
 
     micButtonChat = document.getElementById('mic-toggle-chat');
     stopSpeakingButton = document.getElementById('stop-speaking-button');
@@ -429,9 +681,13 @@ document.addEventListener('DOMContentLoaded', () => {
     speakResponseToggle = document.getElementById('speak-response-toggle');
     autoOpenToggle = document.getElementById('auto-open-toggle');
 
+    const sredaInfoButton = document.getElementById('sreda-info-button');
+    if (sredaInfoButton) {
+        sredaInfoButton.addEventListener('click', () => openModal('sreda-info-modal'));
+    }
+
     if (micButtonChat) {
         micButtonChat.addEventListener('click', toggleMic);
-        micButtonChat.classList.add('active'); 
     }
 
     if (stopSpeakingButton) {
@@ -446,29 +702,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if (confirmClearChatButton) {
         confirmClearChatButton.addEventListener('click', clearChatHistory);
     }
-    
+
     if (settingsToggleHome) {
-        settingsToggleHome.addEventListener('click', () => openModal('settings-modal'));
+        settingsToggleHome.addEventListener('click', () => {
+            applySettingsToUI();
+            openModal('settings-modal');
+        });
     }
     if (settingsToggleChat) {
-        settingsToggleChat.addEventListener('click', () => openModal('settings-modal'));
+        settingsToggleChat.addEventListener('click', () => {
+            applySettingsToUI();
+            openModal('settings-modal');
+        });
     }
 
-    const closeSettingsModalButton = settingsModal ? settingsModal.querySelector('.close-modal') : null;
-    if (closeSettingsModalButton) {
-        closeSettingsModalButton.addEventListener('click', () => closeModal('settings-modal'));
-    }
-    
+    document.querySelectorAll('.modal .close-modal').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const modal = event.target.closest('.modal');
+            if (modal) {
+                closeModal(modal.id);
+            }
+        });
+    });
+
     applySettingsToUI();
     setupSettingsListeners();
 
-    if (typeof startListening === 'function' && micButtonChat && micButtonChat.classList.contains('active')) { 
-        startListening();
-    } else {
-        console.warn("Speech recognition not started. Either API is not available or mic button is not active.");
-    }
     updateMicButtonState();
-
 
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -507,13 +767,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.querySelectorAll('.close-modal').forEach(element => {
-        element.addEventListener('click', () => {
-            const modal = element.closest('.modal');
-            closeModal(modal.id);
-        });
-    });
-
     document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
@@ -521,8 +774,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    if (autoOpenEnabled) {
-        console.log("Auto-open is enabled.");
-    }
 });

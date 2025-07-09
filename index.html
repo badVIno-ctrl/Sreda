@@ -17,10 +17,11 @@
         <div class="container mx-auto px-4 py-8">
             <header class="flex justify-between items-center mb-12">
                 <div class="flex items-center">
-                    <div class="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center mr-4">
+                    <button id="sreda-info-button" class="sreda-icon-button w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center mr-4 relative">
                         <i class="fas fa-robot text-white text-xl"></i>
-                    </div>
-                    <h1 class="text-3xl font-bold neon-text">Среда</h1>
+                        <div class="light-bulb"></div>
+                    </button>
+                    <h1 class="text-3xl font-bold neon-text">Среда <span class="version-number neon-text text-xl ml-2">0.02.09</span></h1>
                 </div>
                 
                 <nav class="flex items-center space-x-6">
@@ -220,9 +221,10 @@
 
     <div id="clear-chat-confirm-modal" class="modal">
         <div class="modal-content">
-            <h3 class="text-xl font-bold mb-4">Подтверждение удаления</h3>
-            <p class="mb-6">Вы уверены, что хотите удалить всю историю чата? Это действие необратимо.</p>
-            <div class="flex justify-end space-x-4">
+            <span class="close-modal">×</span>
+            <h3 class="text-xl font-bold">Подтверждение удаления</h3>
+            <p class="flex-grow flex items-center justify-center text-center my-4">Вы уверены, что хотите удалить всю историю чата? Это действие необратимо.</p>
+            <div class="flex space-x-4 mt-auto justify-center">
                 <button id="cancel-clear-chat" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition">Отмена</button>
                 <button id="confirm-clear-chat" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition">Удалить</button>
             </div>
@@ -232,16 +234,16 @@
     <div id="settings-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal">×</span>
-            <h3 class="text-2xl font-bold mb-6 text-center">Настройки</h3>
-            <div class="space-y-8">
-                <div class="flex items-center justify-between">
+            <h3 class="text-2xl font-bold">Настройки</h3>
+            <div class="settings-container">
+                <div class="settings-item">
                     <label for="speak-response-toggle" class="text-lg">Озвучивать ответ</label>
                     <label class="switch">
                         <input type="checkbox" id="speak-response-toggle">
                         <span class="slider round"></span>
                     </label>
                 </div>
-                <div class="flex items-center justify-between">
+                <div class="settings-item">
                     <label for="auto-open-toggle" class="text-lg">Авто запуск сайта</label>
                     <label class="switch">
                         <input type="checkbox" id="auto-open-toggle">
@@ -251,7 +253,29 @@
             </div>
         </div>
     </div>
-    
+
+    <div id="sreda-info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">×</span>
+            <h3 class="text-2xl font-bold mb-4">О сайте "Среда"</h3>
+            <div class="text-left text-gray-300 overflow-y-auto pr-2" style="max-height: calc(100% - 70px);">
+                <p class="mb-3">Добро пожаловать в "Среду" – вашего персонального интеллектуального ассистента! Я создал этот сайт, чтобы сделать ваше взаимодействие с технологиями максимально простым, интуитивным и эффективным.</p>
+                <p class="mb-3">"Среда" – это не просто чат-бот. Это полноценная система голосового управления, которая понимает вас с полуслова, даже если вы ошиблись в написании или произношении. Моя цель – стать вашей универсальной "средой" для работы, обучения и развлечений.</p>
+                <h4 class="text-xl font-semibold mt-4 mb-2 text-purple-400">Что умеет "Среда"?</h4>
+                <ul class="list-disc list-inside mb-3 ml-4">
+                    <li class="mb-1"><strong>Интеллектуальный чат:</strong> Общайтесь со "Средой" на любую тему. Задавайте вопросы, запрашивайте информацию, получайте креативные ответы. Ассистент использует передовые модели искусственного интеллекта для максимально точных и осмысленных диалогов.</li>
+                    <li class="mb-1"><strong>Голосовое управление:</strong> Забудьте о клавиатуре! Просто скажите "Среда" и произнесите свою команду. Я постоянно работаю над улучшением распознавания речи, чтобы вы могли управлять сайтом и функциями буквально голосом.</li>
+                    <li class="mb-1"><strong>Быстрый доступ к сервисам:</strong> Среда понимает команды на открытие популярных веб-сайтов и приложений. Просто скажите, например, "открой Ютуб", "запусти Телеграм" или "зайди на Озон", и "Среда" мгновенно выполнит вашу команду. "Среда" поддерживаю широкий список сервисов, включая социальные сети, магазины, новостные ресурсы и многие другие.</li>
+                    <li class="mb-1"><strong>Удобные настройки:</strong> В модальном окне настроек (иконка шестеренки) вы можете легко настроить "Среду" под себя. Включите или отключите озвучивание ответов ассистента и выберите функцию автозапуска сайта при открытии браузера.</li>
+                    <li class="mb-1"><strong>Управление историей чата:</strong> Вы можете очистить всю историю переписки в чате, нажав на иконку корзины. Это удобно для поддержания конфиденциальности или просто для начала нового диалога.</li>
+                </ul>
+                <h4 class="text-xl font-semibold mt-4 mb-2 text-purple-400">Как пользоваться чатом?</h4>
+                <p class="mb-3">В нижней части экрана расположен блок ввода сообщений. Вы можете ввести текст вручную или нажать на "иконку микрофона", чтобы активировать голосовой ввод. Рядом с микрофоном находится "кнопка остановки речи" – если Среда говорит слишком долго, вы всегда можете прервать ее.</p>
+                <p class="mb-3">Я постоянно работаем над расширением функционала "Среды" и улучшением ее интеллекта. Оставайтесь со "Средой", чтобы узнать о новых возможностях!</p>
+                <p class="mb-3">Спасибо, что выбрали "Среду"!</p>
+            </div>
+        </div>
+    </div>
     <script src="microphone.js"></script> 
     <script src="script.js"></script>
     <script src="open_sites.js"></script>

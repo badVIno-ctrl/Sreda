@@ -1,46 +1,41 @@
 :root {
-    /* Основные цвета */
     --bg-dark: #121212;
     --text-dark: #e0e0e0;
     --bg-light: #ffffff;
     --text-light: #121212;
-    --accent: #6d28d9; /* Акцентный цвет, например, для кнопок или выделений */
+    --accent: #6d28d9;
 
-    /* Цвета для сообщений в темной теме */
-    --assistant-bg-dark: #2d3748; /* Темно-серый/синий для ассистента в темной теме */
-    --user-bg-dark: #e3f2fd;     /* Светло-синий для пользователя в темной теме */
+    --assistant-bg-dark: #2d3748;
+    --user-bg-dark: #e3f2fd;
     --assistant-text-dark: #ffffff;
     --user-text-dark: #121212;
 
-    /* Цвета для сообщений в светлой теме */
-    --assistant-bg-light: #f5f5f5; /* Нейтральный светло-серый для ассистента в светлой теме */
-    --user-bg-light: #e3f2fd;     /* Светло-синий для пользователя в светлой теме (повтор для консистентности) */
+    --assistant-bg-light: #f5f5f5;
+    --user-bg-light: #e3f2fd;
     --assistant-text-light: #121212;
     --user-text-light: #121212;
 
-    /* Цвета иконок и модальных окон */
     --icon-dark: #ffffff;
     --icon-light: #121212;
     --modal-bg-dark: #1e1e1e;
     --modal-bg-light: #ffffff;
-    --border-color: rgba(109, 40, 217, 0.3); /* Цвет границы по умолчанию */
+    --border-color: rgba(109, 40, 217, 0.3);
 }
 
-/* Базовые стили для HTML и Body */
-html, body {
-    height: 100%;
+html {
+    overflow-y: hidden;
 }
 
 body {
     background-color: var(--bg-dark);
     color: var(--text-dark);
     transition: all 0.3s ease;
-    font-family: 'Inter', sans-serif; /* Чистый и читаемый шрифт */
+    font-family: 'Inter', sans-serif;
     position: relative;
-    overflow-x: hidden;
+    overflow: hidden;
+    height: 100vh;
 }
 
-/* Стили для светлой темы */
 body.light {
     background-color: var(--bg-light);
     color: var(--text-light);
@@ -48,13 +43,12 @@ body.light {
     --chat-user-text: var(--user-text-light);
     --chat-assistant-bg: var(--assistant-bg-light);
     --chat-assistant-text: var(--assistant-text-light);
-    --icon-dark: #121212; /* Иконки в светлой теме */
+    --icon-dark: #121212;
     --icon-light: #121212;
     --modal-bg-dark: #f0f0f0;
     --border-color: rgba(109, 40, 217, 0.5);
 }
 
-/* Стили для темной темы */
 body.dark {
     --chat-user-bg: var(--user-bg-dark);
     --chat-user-text: var(--user-text-dark);
@@ -62,7 +56,6 @@ body.dark {
     --chat-assistant-text: var(--assistant-text-dark);
 }
 
-/* Фоновые паттерны и декорации */
 .grid-pattern {
     position: fixed;
     top: 0;
@@ -82,16 +75,29 @@ body.dark {
     animation: float 15s infinite ease-in-out;
     z-index: -1;
 }
+
+body.light .bubble {
+    background: rgba(109, 40, 217, 0.05);
+}
+
 @keyframes float {
-    0%, 100% {
-        transform: translateY(0) rotate(0deg);
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(20vw, -10vh) rotate(90deg);
     }
     50% {
-        transform: translateY(-100px) rotate(180deg);
+        transform: translate(0, -20vh) rotate(180deg);
+    }
+    75% {
+        transform: translate(-20vw, -10vh) rotate(270deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg);
     }
 }
 
-/* Общие стили страниц */
 .page {
     position: absolute;
     top: 0;
@@ -106,7 +112,6 @@ body.dark {
     display: flex;
     flex-direction: column;
     overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
 }
 .page.hidden {
     transform: translateX(100%);
@@ -114,7 +119,6 @@ body.dark {
     pointer-events: none;
 }
 
-/* Стили модальных окон */
 .modal {
     position: fixed;
     top: 0;
@@ -140,13 +144,14 @@ body.dark {
     padding: 2rem;
     border-radius: 1rem;
     max-width: 80%;
-    max-height: 80%;
+    max-height: 90%;
     width: 600px;
-    height: 400px;
-    overflow-y: auto;
     position: relative;
     border: 1px solid var(--accent);
     box-shadow: 0 0 40px rgba(109, 40, 217, 1);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 .light .modal-content {
     background-color: var(--modal-bg-light);
@@ -164,115 +169,105 @@ body.dark {
     color: var(--text-light);
 }
 
-/* --- Chat Specific Styles --- */
 .chat-message-wrapper {
     display: flex;
-    align-items: flex-end; /* Align avatars to the bottom of the message bubble */
-    margin-bottom: 12px; /* Consistent spacing between messages */
-    max-width: 90%; /* Allow messages to take up more width */
+    align-items: flex-end;
+    margin-bottom: 8px;
+    max-width: 70%;
 }
 
-/* User message alignment and avatar positioning */
 .chat-message-wrapper.user {
-    margin-left: auto; /* Push user messages to the right */
-    margin-right: 20px; /* Small margin from the right edge */
-    flex-direction: row-reverse; /* Avatar on the right for user messages */
+    margin-left: auto;
+    margin-right: 10px;
+    flex-direction: row-reverse;
 }
 
-/* Assistant message alignment and avatar positioning */
 .chat-message-wrapper.assistant {
-    margin-right: auto; /* Push assistant messages to the left */
-    margin-left: 20px; /* Small margin from the left edge */
-    flex-direction: row; /* Avatar on the left for assistant messages */
+    margin-right: auto;
+    margin-left: 10px;
+    flex-direction: row;
 }
 
-/* Avatar styles */
 .avatar-container {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     overflow: hidden;
-    flex-shrink: 0; /* Prevent avatar from shrinking */
+    flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: var(--accent); /* Accent color for avatar background */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    background-color: var(--accent);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 .chat-message-wrapper.user .avatar-container {
-    margin-left: 8px; /* Space between user message and its avatar */
+    margin-left: 6px;
 }
 .chat-message-wrapper.assistant .avatar-container {
-    margin-right: 8px; /* Space between assistant message and its avatar */
+    margin-right: 6px;
 }
 
-/* Styles for the message bubbles themselves */
 .chat-message {
-    border-radius: 18px; /* More rounded corners for a "bubble" feel */
-    padding: 12px 18px; /* Slightly more horizontal padding */
+    border-radius: 18px;
+    padding: 8px 12px;
     word-wrap: break-word;
-    white-space: pre-wrap; /* Preserve whitespace and line breaks */
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15); /* Improved shadow */
-    border: 1px solid; /* Keep the subtle border */
-    line-height: 1.4;
-    text-align: left;
-    max-width: 65%; /* Adjusted max-width for better message flow */
+    white-space: pre-wrap;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    border: none;
+    line-height: 1.35;
+    text-align: center;
+    max-width: 100%;
     font-weight: normal;
-    position: relative; /* Needed for potential bubble tails */
+    position: relative;
+    width: fit-content;
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* User message specific styles */
 .chat-message.user {
     background-color: var(--chat-user-bg);
     color: var(--chat-user-text);
-    border-color: rgba(0, 0, 0, 0.08); /* Slightly more visible border for light messages */
-    margin-left: 0; /* Reset margin from chat-message-wrapper */
-    margin-right: 0; /* Reset margin from chat-message-wrapper */
+    border-bottom-right-radius: 4px;
 }
 
-/* Assistant message specific styles */
 .chat-message.assistant {
     background-color: var(--chat-assistant-bg);
     color: var(--chat-assistant-text);
-    border-color: rgba(255, 255, 255, 0.08); /* Slightly more visible border for dark messages */
-    margin-right: 0; /* Reset margin from chat-message-wrapper */
-    margin-left: 0; /* Reset margin from chat-message-wrapper */
+    border-bottom-left-radius: 4px;
 }
 
-/* Styles for loading dots indicator */
 .chat-message.loading-dots {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    min-height: 2.5rem;
+    min-height: 2.2rem;
     background-color: var(--chat-assistant-bg);
     color: var(--chat-assistant-text);
-    border-color: rgba(255, 255, 255, 0.1);
 }
 .chat-message.loading-dots .w-1\.5 {
-    width: 0.375rem;
-    height: 0.375rem;
+    width: 0.35rem;
+    height: 0.35rem;
 }
 .chat-message.loading-dots .space-x-1 > :not([hidden]) ~ :not([hidden]) {
     margin-right: 0px;
-    margin-left: 0.25rem;
+    margin-left: 0.2rem;
 }
 
-/* Chat container styling */
 #chat-container {
     flex-grow: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 0.5rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
+    scroll-behavior: smooth;
 }
-/* --- End Chat Specific Styles --- */
 
-/* Прочие стили, не относящиеся напрямую к чату, но присутствующие в коде */
 .product-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
@@ -335,6 +330,13 @@ body.dark {
     to {
         text-shadow: 0 0 10px #6d28d9, 0 0 20px #6d28d9, 0 0 30px #6d28d9;
     }
+}
+
+.version-number.neon-text {
+    font-weight: bold;
+    color: inherit;
+    text-shadow: 0 0 5px #6d28d9, 0 0 10px #6d28d9, 0 0 15px #6d28d9;
+    animation: neon-pulse 2s infinite alternate;
 }
 
 #chat-page header {
@@ -440,12 +442,12 @@ body.dark {
     }
 
     .chat-message-wrapper {
-        max-width: 100%; /* Allow full width on small screens */
-        margin-left: 10px; /* Small margin from edges on mobile */
-        margin-right: 10px; /* Small margin from edges on mobile */
+        max-width: 95%;
+        margin-left: 5px;
+        margin-right: 5px;
     }
     .chat-message {
-        max-width: calc(100% - 48px); /* Account for avatar width on mobile */
+        max-width: calc(100% - 42px);
     }
 }
 
@@ -504,74 +506,72 @@ body.light .control-button.active i {
     height: 100vh;
     min-height: -webkit-fill-available;
     min-height: 100dvh;
+    overflow-y: hidden;
 }
 
-/* Стили для переключателя темы */
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
 }
 
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: var(--accent);
+    background-color: var(--accent);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px var(--accent);
+    box-shadow: 0 0 1px var(--accent);
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
 }
 
 .slider.round {
-  border-radius: 34px;
+    border-radius: 34px;
 }
 
 .slider.round:before {
-  border-radius: 50%;
+    border-radius: 50%;
 }
 
-/* Стили для пунктов настроек */
 .settings-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
 }
 
 .settings-item > span:first-child {
@@ -586,6 +586,144 @@ input:checked + .slider:before {
 
 .settings-text-glow {
     text-shadow: 0 0 20px #ffffff,
-                 0 0 20px #ffffff,
-                 0 0 25px #ffffff;
+                    0 0 20px #ffffff,
+                    0 0 25px #ffffff;
+}
+
+#clear-chat-confirm-modal .modal-content {
+    justify-content: space-between;
+    padding-bottom: 1.5rem;
+    max-height: 50%;
+    min-height: 200px;
+}
+
+#clear-chat-confirm-modal .modal-content h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#clear-chat-confirm-modal .modal-content p {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0 1rem;
+}
+
+#clear-chat-confirm-modal .modal-content .flex {
+    justify-content: center;
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+#settings-modal .modal-content {
+    justify-content: flex-start;
+    padding-bottom: 2rem;
+}
+
+#settings-modal .modal-content h3 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#settings-modal .modal-content .settings-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#settings-modal .modal-content .settings-item {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 1.5rem;
+}
+
+.sreda-icon-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.sreda-icon-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 25px rgba(109, 40, 217, 0.7);
+    z-index: 10;
+}
+
+.sreda-icon-button .fa-robot {
+    color: white;
+}
+
+.light-bulb {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 15px;
+    height: 15px;
+    background-color: #ffeb3b;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #ffeb3b, 0 0 10px #ffeb3b, 0 0 15px #ffeb3b, 0 0 20px #ffeb3b;
+    animation: bulb-pulse 2s infinite alternate;
+}
+
+body.light .light-bulb {
+    background-color: #ffd700;
+    box-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700, 0 0 15px #ffd700, 0 0 20px #ffd700;
+}
+
+@keyframes bulb-pulse {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.8);
+        box-shadow: 0 0 2px #ffeb3b;
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b, 0 0 30px #ffeb3b, 0 0 40px #ffeb3b;
+    }
+    100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+        box-shadow: 0 0 2px #ffeb3b;
+    }
+}
+
+body.light @keyframes bulb-pulse {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.8);
+        box-shadow: 0 0 2px #ffd700;
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ffd700, 0 0 40px #ffd700;
+    }
+    100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+        box-shadow: 0 0 2px #ffd700;
+    }
+}
+
+@media (max-width: 768px) {
+    .light-bulb {
+        width: 12px;
+        height: 12px;
+        top: -3px;
+        right: -3px;
+    }
 }
