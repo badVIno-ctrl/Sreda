@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Среда - Регистрация</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grid-pattern"></div>
+    <div id="bubbles-container"></div>
+    <div class="container mx-auto px-4 py-8 h-full flex flex-col" style="min-height: 100vh;">
+        <div id="chat-container" class="flex-1 overflow-y-auto mb-6 space-y-4 p-4"></div>
+        <div class="chat-input flex hidden" id="input-container">
+            <input id="message-input" type="text" placeholder="Введите ответ...">
+            <button id="send-button">Отправить</button>
+        </div>
+    </div>
+    <script>
+        function initBubbles() {
+            const container = document.getElementById('bubbles-container');
+            container.innerHTML = '';
+            const bubbleCount = 20;
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 150 + 50;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const delay = Math.random() * 10;
+                const startTop = Math.random() * 100;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${left}%`;
+                bubble.style.top = `${startTop}%`;
+                bubble.style.animationDuration = `${animationDuration}s`;
+                bubble.style.animationDelay = `-${delay}s`;
+                container.appendChild(bubble);
+            }
+        }
+
+        function typeMessage(element, text, callback) {
+            let index = 0;
+            element.classList.add('typing-cursor');
+            const interval = setInterval(() => {
+                element.textContent = text.slice(0, index);
+                index++;
+                if (index > text.length) {
+                    clearInterval(interval);
+                    element.classList.remove('typing-cursor');
+                    if (callback) callback();
+                }
+            }, 50);
+        }
+
+        function addMessageToChat(role, content, callback) {
+            const chatContainer = document.getElementById('chat-container');
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = `chat-message-wrapper ${role}`;
+            messageWrapper.innerHTML = `
+                <div class="avatar-container">
+                    ${role === 'assistant' ? '<i class="fas fa-robot"></i>' : '<i class="fas fa-user"></i>'}
+                </div>
+                <div class="chat-message ${role} p-2 mb-2"></div>
+            `;
+            chatContainer.appendChild(messageWrapper);
+            const messageElement = messageWrapper.querySelector('.chat-message');
+            typeMessage(messageElement, content, () => {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                if (callback) callback();
+            });
+        }
+
+        function showInputContainer() {
+            const inputContainer = document.getElementById('input-container');
+            inputContainer.classList.remove('hidden');
+        }
+
+        function processName(input) {
+            const lowerInput = input.toLowerCase();
+            const namePatterns = [
+                { pattern: /^я\s+(.+)/, extract: 1 },
+                { pattern: /^меня\s+зовут\s+(.+)/, extract: 1 },
+                { pattern: /^(.+)/, extract: 1 }
+            ];
+            for (const pattern of namePatterns) {
+                const match = lowerInput.match(pattern.pattern);
+                if (match) {
+                    let name = match[pattern.extract].trim();
+                    if (name.match(/валерка/i)) return 'Валерий';
+                    if (name.match(/валера/i)) return 'Валерий';
+                    if (name.match(/саша/i)) return 'Саша';
+                    if (name.match(/аня/i)) return 'Аня';
+                    return name.charAt(0).toUpperCase() + name.slice(1);
+                }
+            }
+            return input.charAt(0).toUpperCase() + input.slice(1);
+        }
+
+        function processCity(input) {
+            const lowerInput = input.toLowerCase();
+            const cityPatterns = [
+                { pattern: /^я\s+живу\s+в\s+(.+)/, extract: 1 },
+                { pattern: /^в\s+(.+)/, extract: 1 },
+                { pattern: /^город\s+(.+)/, extract: 1 },
+                { pattern: /^(.+)/, extract: 1 }
+            ];
+            for (const pattern of cityPatterns) {
+                const match = lowerInput.match(pattern.pattern);
+                if (match) {
+                    return match[pattern.extract].trim().charAt(0).toUpperCase() + match[pattern.extract].trim().slice(1);
+                }
+            }
+            return input.charAt(0).toUpperCase() + input.slice(1);
+        }
+
+        function saveUserData(name, city) {
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userCity', city);
+        }
+
+        function checkUserData() {
+            const name = localStorage.getItem('userName');
+            const city = localStorage.getItem('userCity');
+            if (name && city) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkUserData();
+            initBubbles();
+            const input = document.getElementById('message-input');
+            const sendButton = document.getElementById('send-button');
+            let step = 0;
+            let userName = '';
+
+            function handleInput() {
+                const message = input.value.trim();
+                if (!message) return;
+                addMessageToChat('user', message, () => {
+                    input.value = '';
+                    if (step === 0) {
+                        userName = processName(message);
+                        addMessageToChat('assistant', `Здравствуйте, ${userName}! В каком городе вы живете?`, showInputContainer);
+                        step++;
+                    } else if (step === 1) {
+                        const city = processCity(message);
+                        saveUserData(userName, city);
+                        addMessageToChat('assistant', `Добро пожаловать на мой сайт, ${userName}! Пользуйтесь с наслаждением!`, () => {
+                            const chatContainer = document.getElementById('chat-container');
+                            const nextButtonContainer = document.createElement('div');
+                            // Добавляем классы Tailwind CSS для центрирования
+                            nextButtonContainer.className = 'flex justify-center mt-4'; 
+                            nextButtonContainer.innerHTML = `
+                                <button id="next-button" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full text-lg font-bold transition transform hover:scale-105">Далее →</button>
+                            `;
+                            chatContainer.appendChild(nextButtonContainer);
+                            document.getElementById('next-button').addEventListener('click', () => {
+                                window.location.href = 'index.html';
+                            });
+                            chatContainer.scrollTop = chatContainer.scrollHeight;
+                        });
+                        step++;
+                    }
+                });
+            }
+
+            addMessageToChat('assistant', 'Как вас зовут?', showInputContainer);
+
+            sendButton.addEventListener('click', handleInput);
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleInput();
+            });
+        });
+    </script>
+</body>
+</html>

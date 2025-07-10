@@ -21,7 +21,7 @@
                         <i class="fas fa-robot text-white text-xl"></i>
                         <div class="light-bulb"></div>
                     </button>
-                    <h1 class="text-3xl font-bold neon-text">Среда <span class="version-number neon-text text-xl ml-2">0.02.09</span></h1>
+                    <h1 class="text-3xl font-bold neon-text">Среда <span class="version-number neon-text text-xl ml-2">0.02.10</span></h1>
                 </div>
                 
                 <nav class="flex items-center space-x-6">
@@ -118,43 +118,14 @@
             </header>
             
             <div id="chat-container" class="flex-1 overflow-y-auto mb-6 space-y-4 p-4">
-                </div>
-            
-            <div id="products-sidebar" class="hidden mb-6">
-                <h3 class="text-lg font-bold mb-4">Мои продукты</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="product-card-sm bg-gray-800 p-4 rounded-lg cursor-pointer" data-modal="android">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center mr-3">
-                                <i class="fas fa-mobile-alt text-white"></i>
-                            </div>
-                            <span>Среда Android</span>
-                        </div>
-                    </div>
-                    <div class="product-card-sm bg-gray-800 p-4 rounded-lg cursor-pointer coming-soon" data-modal="windows">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center mr-3">
-                                <i class="fab fa-windows text-white"></i>
-                            </div>
-                            <span>Среда Windows</span>
-                        </div>
-                    </div>
-                    <div class="product-card-sm bg-gray-800 p-4 rounded-lg cursor-pointer" data-modal="glasses">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center mr-3">
-                                <i class="fas fa-glasses text-white"></i>
-                            </div>
-                            <span>Среда в очках</span>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             <div class="chat-input flex">
                 <input id="message-input" type="text" placeholder="Напишите сообщение..." 
                     class="flex-1 bg-gray-800 text-white px-4 py-3 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
                 <button id="send-button" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-r-lg transition">
-                    <i class="fas fa-paper-plane"></i> </button>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -276,8 +247,18 @@
             </div>
         </div>
     </div>
-    <script src="microphone.js"></script> 
-    <script src="script.js"></script>
+
+    <script src="microphone.js"></script>
     <script src="open_sites.js"></script>
+    <script src="utils.js"></script>
+    <script src="index.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!localStorage.getItem('userName') || !localStorage.getItem('userCity')) {
+                window.location.href = 'register.html';
+            }
+        });
+    </script>
 </body>
 </html>
