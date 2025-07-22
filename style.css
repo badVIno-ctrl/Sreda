@@ -17,6 +17,11 @@
     --modal-bg-dark: #1e1e1e;
     --modal-bg-light: #ffffff;
     --border-color: rgba(109, 40, 217, 0.3);
+    --listening-glow: #00ffcc;
+    --recording-glow: #ff007a;
+    --aurora-start: #6d28d9;
+    --aurora-mid: #ff007a;
+    --aurora-end: #00ffcc;
 }
 
 html {
@@ -33,6 +38,7 @@ body {
     overflow: hidden;
     height: 100vh;
     font-size: 16px;
+    overscroll-behavior: none;
 }
 
 body.light {
@@ -105,6 +111,7 @@ body.light .bubble {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
+    overscroll-behavior: contain;
 }
 
 .page.hidden {
@@ -148,6 +155,8 @@ body.light .bubble {
     display: flex;
     flex-direction: column;
     text-align: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .light .modal-content {
@@ -308,6 +317,67 @@ body.light .bubble {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem;
+    position: relative;
+}
+
+.chat-input.listening {
+    animation: listening-pulse 1.5s infinite ease-in-out;
+}
+
+.chat-input.recording {
+    position: relative;
+}
+.chat-input.recording::before {
+    content: '';
+    position: absolute;
+    left: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, var(--recording-glow), transparent 70%);
+    animation: recording-wave 1s infinite ease-out;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.chat-input.speaking {
+    animation: aurora-glow 6s ease-in-out infinite;
+}
+
+@keyframes aurora-glow {
+    0% {
+        box-shadow: 0 0 15px var(--aurora-start),
+                    0 0 30px var(--aurora-mid),
+                    0 0 60px var(--aurora-end);
+    }
+    33% {
+        box-shadow: 0 0 30px var(--aurora-mid),
+                    0 0 60px var(--aurora-end),
+                    0 0 90px var(--aurora-start);
+    }
+    66% {
+        box-shadow: 0 0 60px var(--aurora-end),
+                    0 0 90px var(--aurora-start),
+                    0 0 120px var(--aurora-mid);
+    }
+    100% {
+        box-shadow: 0 0 15px var(--aurora-start),
+                    0 0 30px var(--aurora-mid),
+                    0 0 60px var(--aurora-end);
+    }
+}
+
+@keyframes listening-pulse {
+    0% { box-shadow: 0 0 5px var(--listening-glow); }
+    50% { box-shadow: 0 0 15px var(--listening-glow); }
+    100% { box-shadow: 0 0 5px var(--listening-glow); }
+}
+
+@keyframes recording-wave {
+    0% { transform: translateY(-50%) scale(1); opacity: 0.8; }
+    50% { transform: translateY(-50%) scale(1.5); opacity: 0.4; }
+    100% { transform: translateY(-50%) scale(1); opacity: 0.8; }
 }
 
 .chat-input input {

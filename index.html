@@ -99,6 +99,9 @@
                 <h1 class="text-2xl font-bold absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">Чат со Средой</h1>
                 
                 <div class="flex items-center space-x-4 ml-auto">
+                    <button id="mic-toggle-chat" class="p-2 rounded-full control-button active">
+                        <i class="fas fa-microphone text-xl"></i>
+                    </button>
                     <button id="stop-speaking-button" class="p-2 rounded-lg control-button hidden">
                         <i class="fas fa-stop text-xl"></i>
                     </button>
@@ -107,9 +110,6 @@
                     </button>
                     <button id="clear-chat-button" class="p-2 rounded-full control-button">
                         <i class="fas fa-trash-alt text-xl"></i>
-                    </button>
-                    <button id="mic-toggle-chat" class="p-2 rounded-full control-button active">
-                        <i class="fas fa-microphone text-xl"></i>
                     </button>
                     <button id="theme-toggle-chat" class="p-2 rounded-full control-button">
                         <i class="fas fa-moon text-xl"></i>
@@ -251,14 +251,7 @@
     <script src="microphone.js"></script>
     <script src="open_sites.js"></script>
     <script src="utils.js"></script>
-    <script src="index.js"></script>
-    <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            if (!localStorage.getItem('userName') || !localStorage.getItem('userCity')) {
-                window.location.href = 'register.html';
-            }
-        });
-    </script>
+    <script src="core.js"></script>
+    <script src="chat.js"></script>
 </body>
 </html>
